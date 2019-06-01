@@ -9,7 +9,7 @@
   },
   "welcomeScreen": {
     "poweredBy": "POWERED BY BOWSER",
-    "readyForLaunch": "Ready for launch.",
+    "title": "Player Popularity",
     "continue": "CONTINUE"
   },
   "secondExampleScreen": {

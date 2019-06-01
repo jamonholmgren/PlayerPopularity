@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, Image, ViewStyle, TextStyle, ImageStyle, SafeAreaView } from "react-native"
+import { View, ActivityIndicator, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
@@ -7,7 +7,6 @@ import { Screen } from "../../components/screen"
 import { Wallpaper } from "../../components/wallpaper"
 import { Header } from "../../components/header"
 import { color, spacing } from "../../theme"
-import { API_URL } from "react-native-dotenv"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -32,22 +31,13 @@ const HEADER_TITLE: TextStyle = {
   textAlign: "center",
   letterSpacing: 1.5,
 }
-const TITLE_WRAPPER: TextStyle = {
-  ...TEXT,
-  textAlign: "center",
-}
 const TITLE: TextStyle = {
   ...TEXT,
   ...BOLD,
   fontSize: 28,
   lineHeight: 38,
   textAlign: "center",
-}
-const ALMOST: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 26,
-  fontStyle: "italic",
+  marginBottom: spacing[6],
 }
 const CONTENT: TextStyle = {
   ...TEXT,
@@ -73,6 +63,11 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
+const LOADING_STYLE: ViewStyle = {
+  paddingVertical: spacing[8],
+  paddingHorizontal: spacing[8],
+}
+
 export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
 
 export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
@@ -84,21 +79,11 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
         <Wallpaper />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
           <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-          <Text style={TITLE_WRAPPER}>
-            <Text style={TITLE} text="Your new app, " />
-            <Text style={ALMOST} text="almost" />
-            <Text style={TITLE} text="!" />
-          </Text>
-          <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-          <Text style={CONTENT}>API URL: {API_URL}</Text>
+          <Text style={TITLE} preset="header" tx="welcomeScreen.title" />
           <Text style={CONTENT}>
-            This probably isn't what your app is going to look like. Unless your designer handed you
-            this screen and, in that case, congrats! You're ready to ship.
+            This app lets you rank your favorite (and least favorite) players in the NBA!
           </Text>
-          <Text style={CONTENT}>
-            For everyone else, this is where you'll see a live preview of your fully functioning app
-            using Ignite.
-          </Text>
+          <ActivityIndicator style={LOADING_STYLE} size="large" />
         </Screen>
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>

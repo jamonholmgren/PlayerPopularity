@@ -40,7 +40,7 @@
     "react-native-keychain": "3.0.0",
     "react-native-localize": "^1.0.0",
     "react-native-splash-screen": "3.1.1",
-    "react-navigation": "3.0.0",
+    "react-navigation": "3.11.0",
     "reactotron-mst": "^3.1.1",
     "reactotron-react-native": "^3.4.1",
     "validate.js": "0.12.0"
