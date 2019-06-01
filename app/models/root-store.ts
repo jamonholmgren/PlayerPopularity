@@ -1,6 +1,7 @@
-import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { Instance, SnapshotOut, types, getEnv } from "mobx-state-tree"
 import { NavigationStoreModel } from "../navigation/navigation-store"
 import { PlayerModel, PlayerSnapshot } from "./player"
+import { Api } from "../services/api"
 
 /**
  * An RootStore model.
@@ -21,16 +22,17 @@ export const RootStoreModel = types
   .actions(self => ({
     getAll: () => {
       self.status = "loading"
-      setTimeout(() => {
-        self.setPlayers([
-          {
-            id: "123",
-            name: "Jamon Holmgren",
-            jerseyNumber: "51",
-            image: "",
-          },
-        ])
-      }, 3000)
+      getEnv(self)
+        .api.getPlayers()
+        .then(({ players }) => {
+          if (players.length > 0) {
+            console.tron.log(`Found ${[players.length]} players!`)
+
+            self.setPlayers(players)
+          } else {
+            console.tron.log("No players!")
+          }
+        }, 3000)
     },
   }))
 

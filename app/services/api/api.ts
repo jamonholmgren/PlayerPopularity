@@ -47,9 +47,9 @@ export class Api {
   /**
    * Gets a list of users.
    */
-  async getUsers(): Promise<Types.GetUsersResult> {
+  async getPlayers(): Promise<Types.GetPlayersResult> {
     // make the api call
-    const response: ApiResponse<any> = await this.apisauce.get(`/users`)
+    const response: ApiResponse<any> = await this.apisauce.get(``)
 
     // the typical ways to die when calling an api
     if (!response.ok) {
@@ -57,44 +57,17 @@ export class Api {
       if (problem) return problem
     }
 
-    const convertUser = raw => {
-      return {
-        id: raw.id,
-        name: raw.name,
-      }
+    const convertPlayer = (raw): Types.Player => {
+      return raw
     }
 
     // transform the data into the format we are expecting
     try {
-      const rawUsers = response.data
-      const resultUsers: Types.User[] = rawUsers.map(convertUser)
-      return { kind: "ok", users: resultUsers }
-    } catch {
-      return { kind: "bad-data" }
-    }
-  }
-
-  /**
-   * Gets a single user by ID
-   */
-
-  async getUser(id: string): Promise<Types.GetUserResult> {
-    // make the api call
-    const response: ApiResponse<any> = await this.apisauce.get(`/users/${id}`)
-
-    // the typical ways to die when calling an api
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response)
-      if (problem) return problem
-    }
-
-    // transform the data into the format we are expecting
-    try {
-      const resultUser: Types.User = {
-        id: response.data.id,
-        name: response.data.name,
-      }
-      return { kind: "ok", user: resultUser }
+      console.tron.log(response.data)
+      const rawPlayers = response.data.players
+      console.tron.log(rawPlayers)
+      const resultPlayers: Types.Player[] = rawPlayers.map(convertPlayer)
+      return { kind: "ok", players: resultPlayers }
     } catch {
       return { kind: "bad-data" }
     }
