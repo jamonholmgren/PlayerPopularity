@@ -7,7 +7,7 @@ import { Screen } from "../../components/screen"
 import { Wallpaper } from "../../components/wallpaper"
 import { Header } from "../../components/header"
 import { color, spacing } from "../../theme"
-import { bowserLogo } from "./"
+import { API_URL } from "react-native-dotenv"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -49,11 +49,6 @@ const ALMOST: TextStyle = {
   fontSize: 26,
   fontStyle: "italic",
 }
-const BOWSER: ImageStyle = {
-  alignSelf: "center",
-  marginVertical: spacing[5],
-  maxWidth: "100%",
-}
 const CONTENT: TextStyle = {
   ...TEXT,
   color: "#BAB6C8",
@@ -78,36 +73,31 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
-export interface FirstExampleScreenProps extends NavigationScreenProps<{}> {}
+export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
 
-export class FirstExampleScreen extends React.Component<FirstExampleScreenProps, {}> {
+export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
   nextScreen = () => this.props.navigation.navigate("secondExample")
 
   render() {
     return (
-      <View testID="FirstExampleScreen" style={FULL}>
+      <View testID="WelcomeScreen" style={FULL}>
         <Wallpaper />
-        <Screen
-          style={CONTAINER}
-          preset="scroll"
-          backgroundColor={color.transparent}>
-          <Header
-            headerTx="firstExampleScreen.poweredBy"
-            style={HEADER}
-            titleStyle={HEADER_TITLE}
-          />
+        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+          <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
           <Text style={TITLE_WRAPPER}>
             <Text style={TITLE} text="Your new app, " />
             <Text style={ALMOST} text="almost" />
             <Text style={TITLE} text="!" />
           </Text>
-          <Text style={TITLE} preset="header" tx="firstExampleScreen.readyForLaunch" />
-          <Image source={bowserLogo} style={BOWSER} />
+          <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
+          <Text style={CONTENT}>API URL: {API_URL}</Text>
           <Text style={CONTENT}>
-            This probably isn't what your app is going to look like. Unless your designer handed you this screen and, in that case, congrats! You're ready to ship.
+            This probably isn't what your app is going to look like. Unless your designer handed you
+            this screen and, in that case, congrats! You're ready to ship.
           </Text>
           <Text style={CONTENT}>
-            For everyone else, this is where you'll see a live preview of your fully functioning app using Ignite.
+            For everyone else, this is where you'll see a live preview of your fully functioning app
+            using Ignite.
           </Text>
         </Screen>
         <SafeAreaView style={FOOTER}>
@@ -116,9 +106,9 @@ export class FirstExampleScreen extends React.Component<FirstExampleScreenProps,
               testID="next-screen-button"
               style={CONTINUE}
               textStyle={CONTINUE_TEXT}
-              tx="firstExampleScreen.continue"
+              tx="welcomeScreen.continue"
               onPress={this.nextScreen}
-              />
+            />
           </View>
         </SafeAreaView>
       </View>

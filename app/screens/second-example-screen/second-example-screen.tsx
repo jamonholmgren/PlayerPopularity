@@ -1,12 +1,5 @@
 import * as React from "react"
-import {
-  Image,
-  ImageStyle,
-  Platform,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native"
+import { Image, ImageStyle, Platform, TextStyle, View, ViewStyle } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Screen } from "../../components/screen"
 import { Text } from "../../components/text"
@@ -14,7 +7,6 @@ import { Button } from "../../components/button"
 import { Wallpaper } from "../../components/wallpaper"
 import { Header } from "../../components/header"
 import { color, spacing } from "../../theme"
-import { logoIgnite, heart } from "./"
 import { BulletItem } from "../../components/bullet-item"
 import { Api } from "../../services/api"
 import { save } from "../../utils/storage"
@@ -131,10 +123,7 @@ export class SecondExampleScreen extends React.Component<SecondExampleScreenProp
     return (
       <View testID="SecondExampleScreen" style={FULL}>
         <Wallpaper />
-        <Screen
-          style={CONTAINER}
-          preset="scroll"
-          backgroundColor={color.transparent}>
+        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
           <Header
             headerTx="secondExampleScreen.howTo"
             leftIcon="back"
@@ -153,15 +142,10 @@ export class SecondExampleScreen extends React.Component<SecondExampleScreenProp
               tx="secondExampleScreen.reactotron"
               onPress={this.demoReactotron}
             />
-            <Text
-              style={HINT}
-              tx={`secondExampleScreen.${Platform.OS}ReactotronHint`}
-            />
+            <Text style={HINT} tx={`secondExampleScreen.${Platform.OS}ReactotronHint`} />
           </View>
-          <Image source={logoIgnite} style={IGNITE} />
           <View style={LOVE_WRAPPER}>
             <Text style={LOVE} text="Made with" />
-            <Image source={heart} style={HEART} />
             <Text style={LOVE} text="by Infinite Red" />
           </View>
         </Screen>
