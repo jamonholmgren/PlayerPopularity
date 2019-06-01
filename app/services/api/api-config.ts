@@ -1,4 +1,4 @@
-import { API_URL } from 'react-native-dotenv'
+import { API_URL } from "react-native-dotenv"
 
 /**
  * The options used to configure the API.
@@ -19,6 +19,8 @@ export interface ApiConfig {
  * The default configuration for the app.
  */
 export const DEFAULT_API_CONFIG: ApiConfig = {
-  url: API_URL || 'https://jsonplaceholder.typicode.com',
-  timeout: 10000
+  url:
+    API_URL ||
+    "https://raw.githubusercontent.com/alexnoob/BasketBall-GM-Rosters/master/2018-19.NBA.Roster.json",
+  timeout: 10000,
 }

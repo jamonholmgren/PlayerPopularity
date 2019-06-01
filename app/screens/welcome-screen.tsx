@@ -1,12 +1,14 @@
 import * as React from "react"
 import { View, ActivityIndicator, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
-import { Text } from "../../components/text"
-import { Button } from "../../components/button"
-import { Screen } from "../../components/screen"
-import { Wallpaper } from "../../components/wallpaper"
-import { Header } from "../../components/header"
-import { color, spacing } from "../../theme"
+import { Text } from "../components/text"
+import { Button } from "../components/button"
+import { Screen } from "../components/screen"
+import { Wallpaper } from "../components/wallpaper"
+import { Header } from "../components/header"
+import { color, spacing } from "../theme"
+import { inject, observer } from "mobx-react"
+import { RootStore } from "../models"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -68,10 +70,19 @@ const LOADING_STYLE: ViewStyle = {
   paddingHorizontal: spacing[8],
 }
 
-export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
+export interface WelcomeScreenProps extends NavigationScreenProps<{}> {
+  rootStore: RootStore
+}
 
+@inject("rootStore")
+@observer
 export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
   nextScreen = () => this.props.navigation.navigate("secondExample")
+
+  componentWillMount() {
+    const { rootStore } = this.props
+    rootStore && rootStore.getAll()
+  }
 
   render() {
     return (
@@ -83,7 +94,11 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
           <Text style={CONTENT}>
             This app lets you rank your favorite (and least favorite) players in the NBA!
           </Text>
-          <ActivityIndicator style={LOADING_STYLE} size="large" />
+          {this.props.rootStore.status === "loading" ? (
+            <ActivityIndicator style={LOADING_STYLE} size="large" />
+          ) : (
+            <Text style={CONTENT}>{this.props.rootStore.status}</Text>
+          )}
         </Screen>
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
@@ -93,6 +108,7 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
               textStyle={CONTINUE_TEXT}
               tx="welcomeScreen.continue"
               onPress={this.nextScreen}
+              disabled={this.props.rootStore.status !== "done"}
             />
           </View>
         </SafeAreaView>

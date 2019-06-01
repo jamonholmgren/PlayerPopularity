@@ -7,7 +7,7 @@ import * as React from "react"
 import { AppRegistry } from "react-native"
 import { StatefulNavigator } from "./navigation"
 import { StorybookUIRoot } from "../storybook"
-import { RootStore, setupRootStore } from "./models/root-store"
+import { RootStore, setupRootStore } from "./models"
 import { Provider } from "mobx-react"
 import { BackButtonHandler } from "./navigation/back-button-handler"
 import { contains } from "ramda"
@@ -84,4 +84,3 @@ const SHOW_STORYBOOK = false
 
 const RootComponent = SHOW_STORYBOOK && __DEV__ ? StorybookUIRoot : App
 AppRegistry.registerComponent(APP_NAME, () => RootComponent)
-

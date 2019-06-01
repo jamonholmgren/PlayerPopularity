@@ -6,7 +6,7 @@ export const RootNavigator = createStackNavigator(
     exampleStack: { screen: MainNavigator },
   },
   {
-    headerMode: "none",
+    headerMode: "true",
     navigationOptions: { gesturesEnabled: false },
   },
 )
