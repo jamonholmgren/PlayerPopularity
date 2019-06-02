@@ -2,14 +2,6 @@ import { Instance, SnapshotOut, types, getEnv } from "mobx-state-tree"
 import { NavigationStoreModel } from "../navigation/navigation-store"
 import { PlayerModel, PlayerSnapshot } from "./player"
 
-const transformPlayer = (p): PlayerSnapshot => ({
-  ...p,
-  tid: `${p.tid}`,
-  contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
-})
-
-const hasName = p => Boolean(p.name)
-
 /**
  * A RootStore model.
  */
@@ -33,7 +25,7 @@ export const RootStoreModel = types
         .api.getPlayers()
         .then(({ players }) => {
           if (players.length > 0) {
-            self.setPlayers(players.filter(hasName).map(transformPlayer))
+            self.setPlayers(players)
           } else {
             console.tron.log("No players!")
           }

@@ -1,6 +1,7 @@
 import { ApisauceInstance, create, ApiResponse } from "apisauce"
 import { getGeneralApiProblem } from "./api-problem"
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config"
+import { PlayerSnapshot } from "../../models"
 import * as Types from "./api.types"
 
 /**
@@ -57,15 +58,18 @@ export class Api {
       if (problem) return problem
     }
 
-    const convertPlayer = (raw): Types.Player => {
-      return raw
-    }
-
     // transform the data into the format we are expecting
+    const transformPlayer = (p): Types.Player => ({
+      ...p,
+      tid: `${p.tid}`,
+      contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
+    })
+    const hasName = p => Boolean(p.name)
+
     try {
       console.tron.log(response.data)
       const rawPlayers = response.data.players
-      const resultPlayers: Types.Player[] = rawPlayers.map(convertPlayer)
+      const resultPlayers: Types.Player[] = rawPlayers.filter(hasName).map(transformPlayer)
       return { kind: "ok", players: resultPlayers }
     } catch {
       return { kind: "bad-data" }
