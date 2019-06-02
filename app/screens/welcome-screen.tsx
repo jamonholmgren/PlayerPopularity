@@ -86,6 +86,7 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
   }
 
   render() {
+    const { players, teams, status } = this.props.rootStore
     return (
       <View testID="WelcomeScreen" style={FULL}>
         <Wallpaper />
@@ -95,14 +96,16 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
           <Text style={CONTENT}>
             This app lets you rank your favorite (and least favorite) players in the NBA!
           </Text>
-          {this.props.rootStore.status === "loading" && (
-            <ActivityIndicator style={LOADING_STYLE} size="large" />
-          )}
-          {this.props.rootStore.status === "done" && (
-            <Text style={CONTENT}>
-              Loaded {this.props.rootStore.players.length} players from the API! Tap "Continue" to
-              start rating players.
-            </Text>
+          {status === "loading" && <ActivityIndicator style={LOADING_STYLE} size="large" />}
+          {status === "done" && (
+            <>
+              <Text style={CONTENT}>Loaded {players.length} players from the API!</Text>
+              <Text style={CONTENT}>
+                Also loaded
+                {teams.length} teams from the API!
+              </Text>
+              <Text style={CONTENT}>Tap "Continue" to start rating players.</Text>
+            </>
           )}
         </Screen>
         <SafeAreaView style={FOOTER}>
@@ -113,7 +116,7 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
               textStyle={CONTINUE_TEXT}
               tx="welcomeScreen.continue"
               onPress={this.nextScreen}
-              disabled={this.props.rootStore.status !== "done"}
+              disabled={status !== "done"}
             />
           </View>
         </SafeAreaView>

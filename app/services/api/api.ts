@@ -48,7 +48,7 @@ export class Api {
   /**
    * Gets a list of users.
    */
-  async getPlayers(): Promise<Types.GetPlayersResult> {
+  async get(): Promise<Types.APIResult> {
     // make the api call
     const response: ApiResponse<any> = await this.apisauce.get(``)
 
@@ -65,12 +65,17 @@ export class Api {
       contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
     })
     const hasName = p => Boolean(p.name)
+    const transformTeam = (t): Types.Team => ({
+      ...t,
+      tid: `${t.tid}`,
+    })
 
     try {
-      console.tron.log(response.data)
-      const rawPlayers = response.data.players
-      const resultPlayers: Types.Player[] = rawPlayers.filter(hasName).map(transformPlayer)
-      return { kind: "ok", players: resultPlayers }
+      console.tron.log("API response", response.data)
+      const { players, teams } = response.data
+      const resultPlayers: Types.Player[] = players.filter(hasName).map(transformPlayer)
+      const resultTeams: Types.Team[] = teams.map(transformTeam)
+      return { kind: "ok", players: resultPlayers, teams: resultTeams }
     } catch {
       return { kind: "bad-data" }
     }

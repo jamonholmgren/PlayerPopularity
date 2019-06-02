@@ -47,4 +47,4 @@ export interface Team {
   imgURL: string
 }
 
-export type GetPlayersResult = { kind: "ok"; players: Player[] } | GeneralApiProblem
+export type APIResult = { kind: "ok"; players: Player[]; teams: Team[] } | GeneralApiProblem
