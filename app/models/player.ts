@@ -27,12 +27,12 @@ export const PlayerModel = types.model({
   weight: types.number,
   born: types.model({ year: types.number, loc: types.string }),
   imgURL: types.string,
-  contract: types.model({ amount: types.string, exp: types.number }),
+  contract: types.model({ amount: types.number, exp: types.number }),
   draft: types.model({
     round: types.number,
     pick: types.number,
     tid: types.number,
-    originalTid: types.number,
+    originalTid: types.maybe(types.number),
     year: types.number,
   }),
   college: types.string,
@@ -42,7 +42,7 @@ export const PlayerModel = types.model({
       type: types.string,
     }),
   ),
-  injury: types.model({ type: types.string, gamesRemaining: types.number }),
+  injury: types.maybe(types.model({ type: types.string, gamesRemaining: types.number })),
 })
 
 export type Player = typeof PlayerModel.Type

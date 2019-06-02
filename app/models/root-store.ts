@@ -1,10 +1,15 @@
 import { Instance, SnapshotOut, types, getEnv } from "mobx-state-tree"
 import { NavigationStoreModel } from "../navigation/navigation-store"
 import { PlayerModel, PlayerSnapshot } from "./player"
-import { Api } from "../services/api"
+
+const transformPlayer = p => ({
+  ...p,
+  tid: `${p.tid}`,
+  contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
+})
 
 /**
- * An RootStore model.
+ * A RootStore model.
  */
 export const RootStoreModel = types
   .model("RootStore", {
@@ -14,6 +19,7 @@ export const RootStoreModel = types
   })
   .actions(self => ({
     setPlayers: (players: PlayerSnapshot[]) => {
+      console.tron.log(`Found ${[players.length]} players!`)
       self.status = "done"
       self.players.replace(players)
     },
@@ -25,9 +31,7 @@ export const RootStoreModel = types
         .api.getPlayers()
         .then(({ players }) => {
           if (players.length > 0) {
-            console.tron.log(`Found ${[players.length]} players!`)
-
-            self.setPlayers(players)
+            self.setPlayers(players.filter(p => Boolean(p.name)).map(transformPlayer))
           } else {
             console.tron.log("No players!")
           }

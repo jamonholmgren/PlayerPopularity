@@ -19,7 +19,7 @@ type PlayerRatings = {
 }
 
 export interface Player {
-  tid: number
+  tid: string
   name: string
   ratings: PlayerRatings[]
   pos: string
@@ -28,7 +28,7 @@ export interface Player {
   born: { year: number; loc: string }
   imgURL: string
   contract: { amount: string; exp: number }
-  draft: { round: number; pick: number; tid: number; originalTid: number; year: number }
+  draft: { round: number; pick: number; tid: number; originalTid?: number; year: number }
   college: string
   awards: Award[]
   injury: { type: string; gamesRemaining: number }

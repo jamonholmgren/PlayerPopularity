@@ -82,6 +82,7 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
   componentWillMount() {
     const { rootStore } = this.props
     rootStore && rootStore.getAll()
+    console.tron.repl("rootStore", rootStore)
   }
 
   render() {
@@ -94,10 +95,14 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
           <Text style={CONTENT}>
             This app lets you rank your favorite (and least favorite) players in the NBA!
           </Text>
-          {this.props.rootStore.status === "loading" ? (
+          {this.props.rootStore.status === "loading" && (
             <ActivityIndicator style={LOADING_STYLE} size="large" />
-          ) : (
-            <Text style={CONTENT}>{this.props.rootStore.status}</Text>
+          )}
+          {this.props.rootStore.status === "done" && (
+            <Text style={CONTENT}>
+              Loaded {this.props.rootStore.players.length} players from the API! Tap "Continue" to
+              start rating players.
+            </Text>
           )}
         </Screen>
         <SafeAreaView style={FOOTER}>
