@@ -10567,10 +10567,10 @@ reactotron-core-client@2.8.0:
     "@types/node" "11.13.12"
     "@types/ws" "6.0.1"
 
-reactotron-mst@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/reactotron-mst/-/reactotron-mst-3.1.1.tgz#b9e926731f9e88cd4e7d83a859a66d0427a51900"
-  integrity sha512-V//82Pdk104ddkgQaL0b2I7wlG/eC4UloT9iLEbmYBylMTtAYAxaEK/BP+O2wJsypmvQSaCLilEmXC6Suy7E1A==
+reactotron-mst@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/reactotron-mst/-/reactotron-mst-3.1.2.tgz#bf3a3d9e4f3fa1adfdfab21ca6500f4e90fa44d0"
+  integrity sha512-2jZpKuuY4Nra3WYYdrJVIN+2+PN+MbaHuwDNkdHrf/MVBYZGwRT/jFEpb4jlRMsUiOUs94kY3S82671i8stArA==
   dependencies:
     ramda "^0.25.0"
 

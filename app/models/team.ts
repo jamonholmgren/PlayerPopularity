@@ -1,12 +1,16 @@
 import { types } from "mobx-state-tree"
-import { PlayerModel } from "."
 
 export const TeamModel = types.model({
-  id: types.identifier,
-  city: types.string,
+  tid: types.identifier,
+  cid: types.number,
+  did: types.number,
+  region: types.string,
   name: types.string,
-  image: types.maybe(types.string),
-  players: types.maybe(types.array(PlayerModel)),
+  abbrev: types.string,
+  pop: types.number,
+  strategy: types.enumeration("strategy", ["rebuilding", "contending", "Jordancrying", "lol"]),
+  stadiumCapacity: types.number,
+  imgURL: types.string,
 })
 
 export type Team = typeof TeamModel.Type

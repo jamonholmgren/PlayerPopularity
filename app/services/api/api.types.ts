@@ -30,13 +30,21 @@ export interface Player {
   contract: { amount: string; exp: number }
   draft: { round: number; pick: number; tid: number; originalTid?: number; year: number }
   college: string
-  awards: Award[]
+  awards: { season: number; type: string }[]
   injury: { type: string; gamesRemaining: number }
 }
 
-type Award = {
-  season: number
-  type: string
+export interface Team {
+  tid: string
+  cid: number
+  did: number
+  region: string
+  name: string
+  abbrev: string
+  pop: number
+  strategy: "rebuilding" | "contending" | "Jordancrying" | "lol"
+  stadiumCapacity: number
+  imgURL: string
 }
 
 export type GetPlayersResult = { kind: "ok"; players: Player[] } | GeneralApiProblem

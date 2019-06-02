@@ -10,6 +10,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
+    "noEmit": true,
     "sourceMap": true,
     "target": "es2015",
     "lib": ["es6"]

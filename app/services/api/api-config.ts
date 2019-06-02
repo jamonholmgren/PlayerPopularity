@@ -21,6 +21,6 @@ export interface ApiConfig {
 export const DEFAULT_API_CONFIG: ApiConfig = {
   url:
     API_URL ||
-    "https://raw.githubusercontent.com/alexnoob/BasketBall-GM-Rosters/master/2018-19.NBA.Roster.json",
+    "https://raw.githubusercontent.com/jamonholmgren/BasketBall-GM-Rosters/master/2018-19.NBA.Roster.json",
   timeout: 10000,
 }
