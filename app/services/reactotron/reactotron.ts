@@ -39,6 +39,11 @@ if (__DEV__) {
     use: noop,
     useReactNative: noop,
     warn: noop,
+    trackMstNode: noop,
+    startTimer: noop,
+    send: noop,
+    onCustomCommand: noop,
+    storybookSwitcher: noop,
   }
 }
 

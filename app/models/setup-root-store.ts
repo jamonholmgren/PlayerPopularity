@@ -47,6 +47,7 @@ export async function setupRootStore() {
   } catch (e) {
     // if there's any problems loading, then let's at least fallback to an empty state
     // instead of crashing.
+    // @ts-ignore
     rootStore = RootStoreModel.create({}, env)
 
     // but please inform us what happened

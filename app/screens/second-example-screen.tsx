@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Image, ImageStyle, Platform, TextStyle, View, ViewStyle } from "react-native"
+import { Platform, TextStyle, View, ViewStyle } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Screen } from "../components/screen"
 import { Text } from "../components/text"
@@ -52,10 +52,6 @@ const TAGLINE: TextStyle = {
   lineHeight: 22,
   marginBottom: spacing[4] + spacing[1],
 }
-const IGNITE: ImageStyle = {
-  marginVertical: spacing[6],
-  alignSelf: "center",
-}
 const LOVE_WRAPPER: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
@@ -65,12 +61,6 @@ const LOVE: TextStyle = {
   color: "#BAB6C8",
   fontSize: 15,
   lineHeight: 22,
-}
-const HEART: ImageStyle = {
-  marginHorizontal: spacing[2],
-  width: 10,
-  height: 10,
-  resizeMode: "contain",
 }
 const HINT: TextStyle = {
   color: "#BAB6C8",
@@ -114,7 +104,6 @@ export class SecondExampleScreen extends React.Component<SecondExampleScreenProp
     // Don't do API like this, use store's API
     const demo = new Api()
     demo.setup()
-    demo.getUser("1")
     // Let's do some async storage stuff
     await save("Cool Name", "Boaty McBoatface")
   }

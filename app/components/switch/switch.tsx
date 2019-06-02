@@ -2,7 +2,6 @@ import * as React from "react"
 import { ViewStyle, Animated, Easing, TouchableWithoutFeedback } from "react-native"
 import { color } from "../../theme"
 import { SwitchProps } from "./switch.props"
-import { mergeAll, flatten } from "ramda"
 
 // dimensions
 const THUMB_SIZE = 30
@@ -46,11 +45,6 @@ const THUMB: ViewStyle = {
   elevation: 2,
 }
 
-const enhance = (style, newStyles) => {
-  return mergeAll(flatten([style, newStyles]))
-}
-
-
 interface SwitchState {
   timer: Animated.Value
 }
@@ -91,24 +85,20 @@ export class Switch extends React.PureComponent<SwitchProps, SwitchState> {
       outputRange: [OFF_POSITION, ON_POSITION],
     })
 
-    const style = enhance({}, this.props.style)
+    const style = { ...this.props.style }
 
-    let trackStyle = TRACK
-    trackStyle = enhance(trackStyle, {
+    const trackStyle = {
+      ...TRACK,
       backgroundColor: this.props.value ? ON_COLOR : OFF_COLOR,
       borderColor: this.props.value ? BORDER_ON_COLOR : BORDER_OFF_COLOR,
-      })
-    trackStyle = enhance(trackStyle,
-      this.props.value ? this.props.trackOnStyle : this.props.trackOffStyle,
-      )
+      ...(this.props.value ? this.props.trackOnStyle : this.props.trackOffStyle),
+    }
 
-    let thumbStyle = THUMB
-    thumbStyle = enhance(thumbStyle, {
+    const thumbStyle = {
+      ...THUMB,
       transform: [{ translateX }],
-    })
-    thumbStyle = enhance(thumbStyle,
-      this.props.value ? this.props.thumbOnStyle : this.props.thumbOffStyle,
-    )
+      ...(this.props.value ? this.props.thumbOnStyle : this.props.thumbOffStyle),
+    }
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress} style={style}>
