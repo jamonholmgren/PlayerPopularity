@@ -3,8 +3,7 @@ import { types } from "mobx-state-tree"
 import { reaction, isObservableProp } from "mobx"
 
 const ThingModel = types
-  .model("Thing")
-  .props({
+  .model("Thing", {
     name: "",
     age: 1000,
   })

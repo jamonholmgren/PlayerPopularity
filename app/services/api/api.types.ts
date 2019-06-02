@@ -17,10 +17,6 @@ type PlayerRatings = {
   pss: number
   reb: number
 }
-type Award = {
-  season: number
-  type: string
-}
 
 export interface Player {
   tid: number
@@ -36,6 +32,11 @@ export interface Player {
   college: string
   awards: Award[]
   injury: { type: string; gamesRemaining: number }
+}
+
+type Award = {
+  season: number
+  type: string
 }
 
 export type GetPlayersResult = { kind: "ok"; players: Player[] } | GeneralApiProblem

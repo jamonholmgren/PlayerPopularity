@@ -65,7 +65,6 @@ export class Api {
     try {
       console.tron.log(response.data)
       const rawPlayers = response.data.players
-      console.tron.log(rawPlayers)
       const resultPlayers: Types.Player[] = rawPlayers.map(convertPlayer)
       return { kind: "ok", players: resultPlayers }
     } catch {

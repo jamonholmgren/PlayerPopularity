@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree"
 import { PlayerModel } from "."
 
-export const TeamModel = types.model().props({
+export const TeamModel = types.model({
   id: types.identifier,
   city: types.string,
   name: types.string,

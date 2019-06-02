@@ -7,8 +7,7 @@ import { Api } from "../services/api"
  * An RootStore model.
  */
 export const RootStoreModel = types
-  .model("RootStore")
-  .props({
+  .model("RootStore", {
     navigationStore: types.optional(NavigationStoreModel, {}),
     players: types.optional(types.array(PlayerModel), []),
     status: types.optional(types.enumeration(["pending", "loading", "done", "error"]), "pending"),

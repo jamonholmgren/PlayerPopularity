@@ -12,8 +12,7 @@ export type StatusType = "idle" | "pending" | "done" | "error"
  * Use this to extend your models:
  *
  * ```ts
- *   types.model("MyModel")
- *     .props({})
+ *   types.model("MyModel", {})
  *     .actions(self => ({}))
  *     .extend(withStatus) // <--- time to shine baby!!!
  * ```
