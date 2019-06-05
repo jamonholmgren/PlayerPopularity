@@ -3954,11 +3954,18 @@ exports[`Storyshots Switch Styling 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "backgroundColor": "#686868",
+                    "0": Object {
+                      "backgroundColor": "#686868",
+                    },
+                    "1": Object {
+                      "borderRadius": 0,
+                      "height": 80,
+                    },
+                    "backgroundColor": "#e6e6e6",
                     "borderColor": "rgba(0, 0, 0, 0.1)",
-                    "borderRadius": 0,
+                    "borderRadius": 22.5,
                     "borderWidth": 1,
-                    "height": 80,
+                    "height": 32,
                     "width": 56,
                   }
                 }
@@ -3966,12 +3973,20 @@ exports[`Storyshots Switch Styling 1`] = `
                 <View
                   style={
                     Object {
-                      "backgroundColor": "#b1008e",
-                      "borderColor": "#686868",
-                      "borderRadius": 0,
+                      "0": Object {
+                        "backgroundColor": "#b1008e",
+                        "borderColor": "#686868",
+                      },
+                      "1": Object {
+                        "borderRadius": 0,
+                        "height": 80,
+                      },
+                      "backgroundColor": "#ffffff",
+                      "borderColor": "rgba(0, 0, 0, 0.1)",
+                      "borderRadius": 15,
                       "borderWidth": 1,
                       "elevation": 2,
-                      "height": 80,
+                      "height": 30,
                       "position": "absolute",
                       "shadowColor": "rgba(0, 0, 0, 0.1)",
                       "shadowOffset": Object {
