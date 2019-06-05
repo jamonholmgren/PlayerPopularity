@@ -14,7 +14,7 @@
   },
   "secondExampleScreen": {
     "howTo": "HOW TO",
-    "title": "What’s In This Stack?",
+    "title": "Players",
     "tagLine":
       "Congratulations, you’ve got a very advanced React Native app template here.  Take advantage of this boilerplate!",
     "reactotron": "Demo Reactotron",

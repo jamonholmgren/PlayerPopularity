@@ -12,6 +12,6 @@ describe("Example", () => {
 
   it("should go to next screen after tap", async () => {
     await element(by.id("next-screen-button")).tap()
-    await expect(element(by.id("SecondExampleScreen"))).toBeVisible()
+    await expect(element(by.id("PlayersScreen"))).toBeVisible()
   })
 })

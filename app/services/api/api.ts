@@ -62,6 +62,7 @@ export class Api {
     const transformPlayer = (p): Types.Player => ({
       ...p,
       tid: `${p.tid}`,
+      imageURL: p.imgURL.trim(),
       contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
     })
     const hasName = p => Boolean(p.name)

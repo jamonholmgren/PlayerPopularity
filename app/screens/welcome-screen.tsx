@@ -100,10 +100,7 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
           {status === "done" && (
             <>
               <Text style={CONTENT}>Loaded {players.length} players from the API!</Text>
-              <Text style={CONTENT}>
-                Also loaded
-                {teams.length} teams from the API!
-              </Text>
+              <Text style={CONTENT}>Also loaded {teams.length} teams from the API!</Text>
               <Text style={CONTENT}>Tap "Continue" to start rating players.</Text>
             </>
           )}
