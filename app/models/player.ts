@@ -1,4 +1,5 @@
 import { types } from "mobx-state-tree"
+import { TeamModel } from "./team"
 
 export const PlayerRatingModel = types.model({
   hgt: types.number,
@@ -19,11 +20,12 @@ export const PlayerRatingModel = types.model({
 })
 
 export const PlayerModel = types.model({
-  tid: types.identifier,
+  tid: types.reference(TeamModel),
   name: types.string,
   ratings: types.array(PlayerRatingModel),
   pos: types.string,
   hgt: types.number,
+  height: types.string,
   weight: types.number,
   born: types.model({ year: types.number, loc: types.string }),
   imgURL: types.string,

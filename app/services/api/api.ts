@@ -1,8 +1,7 @@
 import { ApisauceInstance, create, ApiResponse } from "apisauce"
 import { getGeneralApiProblem } from "./api-problem"
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config"
-import { PlayerSnapshot } from "../../models"
-import * as Types from "./api.types"
+import { Player, Team, APIResult } from "./api.types"
 
 /**
  * Manages all requests to the API.
@@ -48,7 +47,7 @@ export class Api {
   /**
    * Gets a list of users.
    */
-  async get(): Promise<Types.APIResult> {
+  async get(): Promise<APIResult> {
     // make the api call
     const response: ApiResponse<any> = await this.apisauce.get(``)
 
@@ -59,14 +58,21 @@ export class Api {
     }
 
     // transform the data into the format we are expecting
-    const transformPlayer = (p): Types.Player => ({
+    const heightString = (h: number): string => {
+      const feet = Math.floor(h / 12)
+      const inches = h % 12
+      return `${feet}-${inches}`
+    }
+    const transformPlayer = (p): Player => ({
       ...p,
       tid: `${p.tid}`,
       imageURL: p.imgURL.trim(),
+      height: heightString(p.hgt),
       contract: { amount: parseInt(p.contract.amount, 10), exp: p.exp || 0 },
     })
-    const hasName = p => Boolean(p.name)
-    const transformTeam = (t): Types.Team => ({
+    const hasName = (p: Player) => Boolean(p.name)
+    const hasTeam = (p: Player) => parseInt(p.tid, 10) >= 0
+    const transformTeam = (t): Team => ({
       ...t,
       tid: `${t.tid}`,
     })
@@ -74,8 +80,11 @@ export class Api {
     try {
       console.tron.log("API response", response.data)
       const { players, teams } = response.data
-      const resultPlayers: Types.Player[] = players.filter(hasName).map(transformPlayer)
-      const resultTeams: Types.Team[] = teams.map(transformTeam)
+      const resultPlayers: Player[] = players
+        .filter(hasName)
+        .filter(hasTeam)
+        .map(transformPlayer)
+      const resultTeams: Team[] = teams.map(transformTeam)
       return { kind: "ok", players: resultPlayers, teams: resultTeams }
     } catch {
       return { kind: "bad-data" }

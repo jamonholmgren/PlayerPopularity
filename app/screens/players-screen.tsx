@@ -9,6 +9,7 @@ import { color, spacing } from "../theme"
 import { inject, observer } from "mobx-react"
 import { RootStore } from "../models"
 import { Button } from "../components/button/button"
+import { Player } from "../models/player"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -44,6 +45,18 @@ const PLAYER: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
 }
+const PLAYER_INFO: ViewStyle = {
+  flex: 1,
+  flexDirection: "column",
+}
+const PLAYER_NAME: TextStyle = {
+  fontSize: 20,
+  flex: 1,
+}
+const PLAYER_BIO: TextStyle = {
+  fontSize: 14,
+  flex: 1,
+}
 
 export interface PlayersScreenProps extends NavigationScreenProps<{}> {
   rootStore: RootStore
@@ -70,16 +83,25 @@ export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
           <Text style={TITLE} preset="header" tx="secondExampleScreen.title" />
           <FlatList
             data={players}
-            renderItem={({ item }) => (
-              <Button preset={"link"} style={PLAYER}>
-                <Image
-                  source={{ uri: item.imgURL }}
-                  style={{ width: 40, height: 40, marginRight: 16 }}
-                />
-                <Text text={item.name} style={{ flex: 1, fontSize: 20 }} />
-              </Button>
-            )}
-            keyExtractor={item => item.imgURL}
+            renderItem={({ item }) => {
+              const p = item as Player
+              return (
+                <Button preset={"link"} style={PLAYER}>
+                  <Image
+                    source={{ uri: p.imgURL }}
+                    style={{ width: 40, height: 40, marginRight: 16 }}
+                  />
+                  <View style={PLAYER_INFO}>
+                    <Text text={p.name} style={PLAYER_NAME} />
+                    <Text
+                      text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
+                      style={PLAYER_BIO}
+                    />
+                  </View>
+                </Button>
+              )
+            }}
+            keyExtractor={p => p.imgURL}
           />
         </Screen>
       </View>
