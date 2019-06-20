@@ -1,5 +1,6 @@
 import * as React from "react"
 import { FlatList, TextStyle, View, ViewStyle, Image } from "react-native"
+import Animated from "react-native-reanimated"
 import { NavigationScreenProps } from "react-navigation"
 import { Screen } from "../components/screen"
 import { Text } from "../components/text"
@@ -85,20 +86,25 @@ export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
             data={players}
             renderItem={({ item }) => {
               const p = item as Player
+              const animStyle = {
+                height: 100,
+              }
               return (
-                <Button preset={"link"} style={PLAYER}>
-                  <Image
-                    source={{ uri: p.imgURL }}
-                    style={{ width: 40, height: 40, marginRight: 16 }}
-                  />
-                  <View style={PLAYER_INFO}>
-                    <Text text={p.name} style={PLAYER_NAME} />
-                    <Text
-                      text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
-                      style={PLAYER_BIO}
+                <Animated.View style={animStyle}>
+                  <Button preset={"link"} style={PLAYER}>
+                    <Image
+                      source={{ uri: p.imgURL }}
+                      style={{ width: 40, height: 40, marginRight: 16 }}
                     />
-                  </View>
-                </Button>
+                    <View style={PLAYER_INFO}>
+                      <Text text={p.name} style={PLAYER_NAME} />
+                      <Text
+                        text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
+                        style={PLAYER_BIO}
+                      />
+                    </View>
+                  </Button>
+                </Animated.View>
               )
             }}
             keyExtractor={p => p.imgURL}
