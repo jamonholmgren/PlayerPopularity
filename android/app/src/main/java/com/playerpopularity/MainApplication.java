@@ -2,13 +2,8 @@ package com.playerpopularity;
 
 import android.app.Application;
 
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.swmansion.reanimated.ReanimatedPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.reactcommunity.rnlocalize.RNLocalizePackage;
-import com.oblador.keychain.KeychainPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,15 +22,12 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReanimatedPackage(),
-            new RNGestureHandlerPackage(),
-            new SplashScreenReactPackage(),
-            new RNLocalizePackage(),
-            new KeychainPackage(),
-            new AsyncStoragePackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for
+      // example:
+      // packages.add(new MyReactNativePackage());
+      return packages;
     }
 
     @Override
