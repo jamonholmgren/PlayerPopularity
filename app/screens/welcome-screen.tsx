@@ -79,10 +79,9 @@ export interface WelcomeScreenProps extends NavigationScreenProps<{}> {
 export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
   nextScreen = () => this.props.navigation.navigate("secondExample")
 
-  componentWillMount() {
+  componentDidMount() {
     const { rootStore } = this.props
     rootStore && rootStore.getAll()
-    console.tron.repl("rootStore", rootStore)
   }
 
   render() {

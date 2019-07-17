@@ -1,6 +1,13 @@
 import * as React from "react"
-import { FlatList, TextStyle, View, ViewStyle, Image } from "react-native"
-import Animated from "react-native-reanimated"
+import {
+  FlatList,
+  TextStyle,
+  View,
+  ViewStyle,
+  Image,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Screen } from "../components/screen"
 import { Text } from "../components/text"
@@ -58,15 +65,46 @@ const PLAYER_BIO: TextStyle = {
   fontSize: 14,
   flex: 1,
 }
+const AVATAR = {
+  width: 40,
+  height: 40,
+}
+const AVATAR_PIC = {
+  ...AVATAR,
+  marginRight: 16,
+}
+const RATING_VIEW: TextStyle = {
+  height: 40,
+  fontSize: 30,
+}
 
 export interface PlayersScreenProps extends NavigationScreenProps<{}> {
   rootStore: RootStore
 }
 
+const RatingView = () => {
+  return <Text style={RATING_VIEW}>⭐️️ ⭐️ ⭐️ ⭐️ ⭐️</Text>
+}
+
+type PlayersScreenState = { currentPlayer: Player | void }
+
 @inject("rootStore")
 @observer
 export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
+  state: PlayersScreenState = {
+    currentPlayer: undefined,
+  }
+
   goBack = () => this.props.navigation.goBack(null)
+
+  openPlayerRating = (currentPlayer: Player) => {
+    console.tron.log("openPlayerRating", currentPlayer)
+    this.setState({ currentPlayer })
+  }
+  setPlayerRating = (currentPlayer: Player | void) => {
+    console.tron.log("setPlayerRating", currentPlayer)
+    this.setState({ currentPlayer })
+  }
 
   render() {
     const { players } = this.props.rootStore
@@ -84,27 +122,32 @@ export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
           <Text style={TITLE} preset="header" tx="secondExampleScreen.title" />
           <FlatList
             data={players}
+            extraData={this.state}
             renderItem={({ item }) => {
               const p = item as Player
-              const animStyle = {
-                height: 100,
-              }
               return (
-                <Animated.View style={animStyle}>
-                  <Button preset={"link"} style={PLAYER}>
-                    <Image
-                      source={{ uri: p.imgURL }}
-                      style={{ width: 40, height: 40, marginRight: 16 }}
-                    />
-                    <View style={PLAYER_INFO}>
-                      <Text text={p.name} style={PLAYER_NAME} />
-                      <Text
-                        text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
-                        style={PLAYER_BIO}
-                      />
-                    </View>
-                  </Button>
-                </Animated.View>
+                <Button
+                  preset={"link"}
+                  style={PLAYER}
+                  onPress={() => {
+                    this.setState({ currentPlayer: p })
+                  }}
+                >
+                  <Image source={{ uri: p.imgURL }} style={AVATAR_PIC} />
+                  <View style={PLAYER_INFO}>
+                    {p !== this.state.currentPlayer ? (
+                      <>
+                        <Text text={p.name} style={PLAYER_NAME} />
+                        <Text
+                          text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
+                          style={PLAYER_BIO}
+                        />
+                      </>
+                    ) : (
+                      <RatingView />
+                    )}
+                  </View>
+                </Button>
               )
             }}
             keyExtractor={p => p.imgURL}
