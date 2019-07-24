@@ -3,7 +3,7 @@ import { RootNavigator } from "./root-navigator"
 import { NavigationActions, NavigationAction } from "react-navigation"
 import { NavigationEvents } from "./navigation-events"
 
-const DEFAULT_STATE = RootNavigator.router.getStateForAction(NavigationActions.init(), null)
+const getDefaultState = () => RootNavigator.router.getStateForAction(NavigationActions.init(), null)
 
 /**
  * Finds the current route.
@@ -27,7 +27,7 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
     /**
      * the navigation state tree (Frozen here means it is immutable.)
      */
-    state: types.optional(types.frozen(), DEFAULT_STATE),
+    state: types.optional(types.frozen(), types.late(() => getDefaultState())),
   })
   .preProcessSnapshot(snapshot => {
     if (!snapshot || !Boolean(snapshot.state)) return snapshot
@@ -38,14 +38,14 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
       return snapshot
     } catch (e) {
       // otherwise restore default state
-      return { ...snapshot, state: DEFAULT_STATE }
+      return { ...snapshot, state: getDefaultState() }
     }
   })
   .actions(self => ({
     /**
      * Return all subscribers
      */
-    actionSubscribers(){
+    actionSubscribers() {
       return self.subs
     },
 
@@ -68,7 +68,7 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
      * Resets the navigation back to the start.
      */
     reset() {
-      self.state = DEFAULT_STATE
+      self.state = getDefaultState()
     },
 
     /**
@@ -84,7 +84,7 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
      *
      * @param routeName The route name.
      */
-    navigateTo (routeName: string) {
+    navigateTo(routeName: string) {
       self.dispatch(NavigationActions.navigate({ routeName }))
     },
   }))
