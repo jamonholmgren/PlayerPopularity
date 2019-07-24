@@ -74,9 +74,7 @@ export interface WelcomeScreenProps extends NavigationScreenProps<{}> {
   rootStore: RootStore
 }
 
-@inject("rootStore")
-@observer
-export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
+class WelcomeScreenComponent extends React.Component<WelcomeScreenProps, {}> {
   nextScreen = () => this.props.navigation.navigate("secondExample")
 
   componentDidMount() {
@@ -120,3 +118,6 @@ export class WelcomeScreen extends React.Component<WelcomeScreenProps, {}> {
     )
   }
 }
+
+// Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
+export const WelcomeScreen = inject("rootStore")(observer(WelcomeScreenComponent))

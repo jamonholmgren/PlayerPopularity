@@ -88,9 +88,7 @@ const RatingView = () => {
 
 type PlayersScreenState = { currentPlayer: Player | void }
 
-@inject("rootStore")
-@observer
-export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
+class PlayersScreenComponent extends React.Component<PlayersScreenProps, {}> {
   state: PlayersScreenState = {
     currentPlayer: undefined,
   }
@@ -157,3 +155,6 @@ export class PlayersScreen extends React.Component<PlayersScreenProps, {}> {
     )
   }
 }
+
+// Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
+export const PlayersScreen = inject("rootStore")(observer(PlayersScreenComponent))

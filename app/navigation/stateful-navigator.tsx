@@ -9,9 +9,7 @@ interface StatefulNavigatorProps {
   navigationStore?: NavigationStore
 }
 
-@inject("navigationStore")
-@observer
-export class StatefulNavigator extends React.Component<StatefulNavigatorProps, {}> {
+class StatefulNavigatorComponent extends React.Component<StatefulNavigatorProps, {}> {
   currentNavProp: NavigationScreenProp<NavigationState>
 
   getCurrentNavigation = () => {
@@ -35,3 +33,6 @@ export class StatefulNavigator extends React.Component<StatefulNavigatorProps, {
     return <RootNavigator navigation={this.currentNavProp} />
   }
 }
+
+// Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
+export const StatefulNavigator = inject("navigationStore")(observer(StatefulNavigatorComponent))

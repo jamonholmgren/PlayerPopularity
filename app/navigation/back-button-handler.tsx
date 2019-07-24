@@ -12,9 +12,7 @@ interface BackButtonHandlerProps {
   canExit(routeName: string): Boolean
 }
 
-@inject("navigationStore")
-@observer
-export class BackButtonHandler extends React.Component<BackButtonHandlerProps, {}> {
+class BackButtonHandlerComponent extends React.Component<BackButtonHandlerProps, {}> {
   /**
    * Subscribe when we come to life.
    */
@@ -55,3 +53,6 @@ export class BackButtonHandler extends React.Component<BackButtonHandlerProps, {
     return this.props.children
   }
 }
+
+// Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
+export const BackButtonHandler = inject("navigationStore")(observer(BackButtonHandlerComponent))
