@@ -7,9 +7,10 @@ import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
 import { observer } from "mobx-react"
-import { RootStore, useRootStore } from "../models"
+import { RootStore } from "../models"
 import { Button } from "../components/button/button"
 import { Player } from "../models/player"
+import { useRootStore } from "../models/use-stores"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
