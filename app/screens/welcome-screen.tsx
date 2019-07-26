@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { View, ActivityIndicator, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Text } from "../components/text"

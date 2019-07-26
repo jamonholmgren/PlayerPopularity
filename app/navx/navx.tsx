@@ -74,6 +74,7 @@ export const NavX = (props: NavXProps) => {
   const NavXNavigator = createNavXNavigator(RootNavigator)
 
   return (
+    // access with `useRootStore` and `useNavigationStore` hooks
     <Provider rootStore={props.rootStore} navigationStore={navStore}>
       <BackButtonHandler canExit={props.canExit}>
         <NavXNavigator>{props.screen}</NavXNavigator>
