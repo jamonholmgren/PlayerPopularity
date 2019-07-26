@@ -1,5 +1,19 @@
 import AsyncStorage from "@react-native-community/async-storage"
 
+// Quieting AsyncStorage warnings!
+// Per https://github.com/storybookjs/storybook/issues/6078#issuecomment-510167432
+const ReactNative = require("react-native")
+Object.defineProperty(ReactNative, "AsyncStorage", {
+  get(): any {
+    return require("@react-native-community/async-storage").default
+  },
+})
+
+/**
+ * Export AsyncStorage so it's usable elsewhere.
+ */
+export const Storage = AsyncStorage
+
 /**
  * Loads a string from storage.
  *
@@ -7,7 +21,7 @@ import AsyncStorage from "@react-native-community/async-storage"
  */
 export async function loadString(key: string): Promise<string | null> {
   try {
-    return await AsyncStorage.getItem(key)
+    return await Storage.getItem(key)
   } catch {
     // not sure why this would fail... even reading the RN docs I'm unclear
     return null
@@ -22,7 +36,7 @@ export async function loadString(key: string): Promise<string | null> {
  */
 export async function saveString(key: string, value: string): Promise<boolean> {
   try {
-    await AsyncStorage.setItem(key, value)
+    await Storage.setItem(key, value)
     return true
   } catch {
     return false
@@ -36,7 +50,7 @@ export async function saveString(key: string, value: string): Promise<boolean> {
  */
 export async function load(key: string): Promise<any | null> {
   try {
-    const almostThere = await AsyncStorage.getItem(key)
+    const almostThere = await Storage.getItem(key)
     return JSON.parse(almostThere)
   } catch {
     return null
@@ -51,7 +65,7 @@ export async function load(key: string): Promise<any | null> {
  */
 export async function save(key: string, value: any): Promise<boolean> {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value))
+    await Storage.setItem(key, JSON.stringify(value))
     return true
   } catch {
     return false
@@ -65,7 +79,7 @@ export async function save(key: string, value: any): Promise<boolean> {
  */
 export async function remove(key: string): Promise<void> {
   try {
-    await AsyncStorage.removeItem(key)
+    await Storage.removeItem(key)
   } catch {}
 }
 
@@ -74,6 +88,6 @@ export async function remove(key: string): Promise<void> {
  */
 export async function clear(): Promise<void> {
   try {
-    await AsyncStorage.clear()
+    await Storage.clear()
   } catch {}
 }

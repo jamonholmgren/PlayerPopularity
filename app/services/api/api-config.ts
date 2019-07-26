@@ -1,5 +1,7 @@
 import { API_URL } from "react-native-dotenv"
 
+if (!API_URL) throw new Error("No API_URL set -- check your .env file?")
+
 /**
  * The options used to configure the API.
  */
@@ -19,8 +21,6 @@ export interface ApiConfig {
  * The default configuration for the app.
  */
 export const DEFAULT_API_CONFIG: ApiConfig = {
-  url:
-    API_URL ||
-    "https://raw.githubusercontent.com/jamonholmgren/BasketBall-GM-Rosters/master/2018-19.NBA.Roster.json",
+  url: API_URL,
   timeout: 10000,
 }

@@ -3,7 +3,7 @@ import { RootStore } from "../../models"
 import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
-import { clear } from "../../utils/storage"
+import { clear, Storage } from "../../utils/storage"
 
 // Teach TypeScript about the bad things we want to do.
 declare global {
@@ -65,7 +65,6 @@ export class Reactotron {
     // merge the passed in config with some defaults
     this.config = {
       host: "localhost",
-      useAsyncStorage: true,
       ...config,
       state: {
         initial: false,
@@ -116,10 +115,11 @@ export class Reactotron {
         host: this.config.host,
       })
 
+      // set async storage
+      // Tron.setAsyncStorageHandler(Storage)
+
       // hookup middleware
-      Tron.useReactNative({
-        asyncStorage: this.config.useAsyncStorage ? undefined : false,
-      })
+      Tron.useReactNative({})
 
       // ignore some chatty `mobx-state-tree` actions
       const RX = /postProcessSnapshot|@APPLY_SNAPSHOT/

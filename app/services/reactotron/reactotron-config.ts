@@ -12,7 +12,7 @@ export interface ReactotronConfig {
     /** log the initial data that we put into the state on startup? */
     initial?: boolean
     /** log snapshot changes. */
-    snapshots?: boolean,
+    snapshots?: boolean
   }
 }
 
@@ -22,7 +22,7 @@ export interface ReactotronConfig {
 export const DEFAULT_REACTOTRON_CONFIG: ReactotronConfig = {
   clearOnLoad: true,
   host: "localhost",
-  useAsyncStorage: true,
+  useAsyncStorage: false,
   state: {
     initial: true,
     snapshots: false,
