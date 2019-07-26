@@ -39,18 +39,14 @@ export const NavigationEvents = types.model("NavigationEvents").volatile(() => {
    * @param handler Some strange handler
    */
   const addListener = (eventName: EventType, handler: NavigationEventCallback) => {
-    if (eventName !== "action") {
-      return { remove: () => {} }
-    }
+    if (eventName !== "action") return { remove: () => {} }
 
     // subscribe
     subs.add(handler)
 
     // return the instructions on how to unsubscribe
-    return {
-      remove: () => subs.delete(handler),
-    }
+    return { remove: () => subs.delete(handler) }
   }
 
-  return { addListener, fireSubscribers, subs}
+  return { addListener, fireSubscribers, subs }
 })

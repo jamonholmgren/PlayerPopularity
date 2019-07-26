@@ -1,36 +1,25 @@
 import * as React from "react"
-import { inject, observer } from "mobx-react"
+import { observer } from "mobx-react"
 // @ts-ignore: until they update @type/react-navigation to include getNavigation.
 // prettier-ignore
 import { createStackNavigator, getNavigation, NavigationScreenProp, NavigationState } from "react-navigation"
-import { NavigationStore } from "../stores/navigation-store"
+import { useNavigationStore } from "../stores/use-stores"
 import { load, save } from "../storage"
 
 interface NavXNavigatorProps {
-  navigationStore?: NavigationStore
   children?: any
 }
 
-export const createNavXNavigator = (mainStack, navOptions = {}) => {
+export const createNavXNavigator = RootNavigator => {
   const NavXNavigatorComponent = (props: NavXNavigatorProps) => {
+    const navigationStore = useNavigationStore()
+
     let currentNavProp: NavigationScreenProp<NavigationState>
 
     const getCurrentNavigation = () => currentNavProp
 
     // grab our state & dispatch from our navigation store
-    const { state, dispatch, actionSubscribers } = props.navigationStore
-
-    // make a quick root navigator
-    const RootNavigator = createStackNavigator(
-      {
-        rootStack: { screen: mainStack },
-      },
-      {
-        headerMode: "none",
-        navigationOptions: { gesturesEnabled: false },
-        ...navOptions,
-      },
-    )
+    const { state, dispatch, actionSubscribers } = navigationStore
 
     // create a custom navigation implementation
     currentNavProp = getNavigation(
@@ -55,9 +44,10 @@ export const createNavXNavigator = (mainStack, navOptions = {}) => {
     // prettier-ignore
     const persist = __DEV__ ? undefined : { persistNavigationState, loadNavigationState }
 
-    return <RootNavigator {...persist} navigation={currentNavProp} />
+    console.tron.logImportant(currentNavProp)
+
+    return <RootNavigator {...persist} navigation={currentNavProp}></RootNavigator>
   }
 
-  // Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
-  return inject("navigationStore")(observer(NavXNavigatorComponent))
+  return observer(NavXNavigatorComponent)
 }

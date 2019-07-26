@@ -2,10 +2,9 @@ import { useEffect } from "react"
 import { BackHandler } from "react-native"
 import { inject, observer } from "mobx-react"
 import { NavigationActions } from "react-navigation"
-import { NavigationStore } from "../stores/navigation-store"
+import { useNavigationStore } from "../stores/use-stores"
 
 interface BackButtonHandlerProps {
-  navigationStore?: NavigationStore
   /**
    * Are we allowed to exit?
    */
@@ -18,13 +17,15 @@ interface BackButtonHandlerProps {
 }
 
 const BackButtonHandlerComponent = (props: BackButtonHandlerProps) => {
+  const navigationStore = useNavigationStore()
+
   useEffect(() => {
     /**
      * Fires when the back button is pressed on android.
      */
     const onBackPress = () => {
       // grab the current route
-      const routeName = props.navigationStore.findCurrentRoute().routeName
+      const routeName = navigationStore.findCurrentRoute().routeName
 
       // are we allowed to exit?
       if (props.canExit(routeName)) {
@@ -32,7 +33,7 @@ const BackButtonHandlerComponent = (props: BackButtonHandlerProps) => {
         return false
       } else {
         // we can't exit, so let's turn this into a back action
-        props.navigationStore.dispatch(NavigationActions.back())
+        navigationStore.dispatch(NavigationActions.back())
         // let the system know we've handled this event
         return true
       }

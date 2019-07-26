@@ -1,9 +1,6 @@
 import { Instance, SnapshotOut, types, getEnv } from "mobx-state-tree"
-import { PlayerModel, PlayerSnapshot } from "../../models/player"
-import { TeamModel, TeamSnapshot } from "../../models/team"
-
-// import { NavigationStoreModel } from "./navigation-store"
-// .props({ navigationStore: types.optional(NavigationStoreModel, {}) })
+import { PlayerModel, PlayerSnapshot } from "./player"
+import { TeamModel, TeamSnapshot } from "./team"
 
 /**
  * A RootStore model.

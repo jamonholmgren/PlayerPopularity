@@ -3,16 +3,14 @@
 // In this file, we'll be kicking off our app or storybook.
 
 import "./i18n"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { AppRegistry } from "react-native"
 import { StorybookUIRoot } from "../storybook"
 import { contains } from "ramda"
 import { setupRootStore } from "./models/setup-root-store"
 import { DEFAULT_NAVIGATION_CONFIG } from "./navx/navigation/navigation-config"
 import { MainStack } from "./navigation/main-stack"
-import { createNavX } from "./navx"
-
-const NavX = createNavX(MainStack, {})
+import { NavX } from "./navx"
 
 /**
  * This is the root component of our app.
@@ -51,16 +49,7 @@ export const App = (props: {}) => {
   if (!rootStore) return null
 
   // otherwise, we're ready to render the app
-
-  return (
-    <NavX screen={MainStack} rootStore={rootStore} canExit={canExit} />
-
-    // <Provider rootStore={rootStore} navigationStore={rootStore.navigationStore} {...otherStores}>
-    //   <BackButtonHandler canExit={this.canExit}>
-    //     <StatefulNavigator />
-    //   </BackButtonHandler>
-    // </Provider>
-  )
+  return <NavX screen={MainStack} rootStore={rootStore} canExit={canExit} />
 }
 
 /**
