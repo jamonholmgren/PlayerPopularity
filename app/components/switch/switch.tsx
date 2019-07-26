@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import { ViewStyle, Animated, Easing, TouchableWithoutFeedback } from "react-native"
 import { color } from "../../theme"
 import { SwitchProps } from "./switch.props"
@@ -9,7 +9,7 @@ const WIDTH = 56
 const MARGIN = 2
 const OFF_POSITION = -0.5
 const ON_POSITION = WIDTH - THUMB_SIZE - MARGIN
-const BORDER_RADIUS = THUMB_SIZE * 3 / 4
+const BORDER_RADIUS = (THUMB_SIZE * 3) / 4
 
 // colors
 const ON_COLOR = color.primary
@@ -45,19 +45,17 @@ const THUMB: ViewStyle = {
   elevation: 2,
 }
 
-interface SwitchState {
-  timer: Animated.Value
-}
+// interface SwitchState {
+//   timer: Animated.Value
+// }
 
-export class Switch extends React.PureComponent<SwitchProps, SwitchState> {
-  state = {
-    timer: new Animated.Value(this.props.value ? 1 : 0),
-  }
+export function Switch(props: SwitchProps) {
+  const [timer] = useState<Animated.Value>(new Animated.Value(props.value ? 1 : 0))
 
-  startAnimation(newValue: boolean) {
+  function startAnimation(newValue: boolean) {
     const toValue = newValue ? 1 : 0
     const easing = Easing.out(Easing.circle)
-    Animated.timing(this.state.timer, {
+    Animated.timing(timer, {
       toValue,
       duration: DURATION,
       easing,
@@ -65,47 +63,41 @@ export class Switch extends React.PureComponent<SwitchProps, SwitchState> {
     }).start()
   }
 
-  componentWillReceiveProps(newProps: SwitchProps) {
-    if (newProps.value !== this.props.value) {
-      this.startAnimation(newProps.value)
-    }
-  }
+  useEffect(() => startAnimation(props.value), [props.value])
 
   /**
    * Fires when we tap the touchable.
    */
-  handlePress = () => this.props.onToggle && this.props.onToggle(!this.props.value)
+  const handlePress = () => props.onToggle && props.onToggle(!props.value)
 
   /**
    * Render the component.
    */
-  render() {
-    const translateX = this.state.timer.interpolate({
-      inputRange: [0, 1],
-      outputRange: [OFF_POSITION, ON_POSITION],
-    })
+  const translateX = timer.interpolate({
+    inputRange: [0, 1],
+    outputRange: [OFF_POSITION, ON_POSITION],
+  })
 
-    const style = { ...this.props.style }
+  const style = { ...props.style }
 
-    const trackStyle = {
-      ...TRACK,
-      backgroundColor: this.props.value ? ON_COLOR : OFF_COLOR,
-      borderColor: this.props.value ? BORDER_ON_COLOR : BORDER_OFF_COLOR,
-      ...(this.props.value ? this.props.trackOnStyle : this.props.trackOffStyle),
-    }
-
-    const thumbStyle = {
-      ...THUMB,
-      transform: [{ translateX }],
-      ...(this.props.value ? this.props.thumbOnStyle : this.props.thumbOffStyle),
-    }
-
-    return (
-      <TouchableWithoutFeedback onPress={this.handlePress} style={style}>
-        <Animated.View style={trackStyle}>
-          <Animated.View style={thumbStyle} />
-        </Animated.View>
-      </TouchableWithoutFeedback>
-    )
+  const trackStyle = {
+    ...TRACK,
+    backgroundColor: props.value ? ON_COLOR : OFF_COLOR,
+    borderColor: props.value ? BORDER_ON_COLOR : BORDER_OFF_COLOR,
+    ...(props.value ? props.trackOnStyle : props.trackOffStyle),
   }
+
+  const thumbStyle = {
+    ...THUMB,
+    transform: [{ translateX }],
+    ...(props.value ? props.thumbOnStyle : props.thumbOffStyle),
+  }
+
+  return (
+    <TouchableWithoutFeedback onPress={handlePress} style={style}>
+      <Animated.View style={trackStyle}>
+        <Animated.View style={thumbStyle} />
+      </Animated.View>
+    </TouchableWithoutFeedback>
+  )
 }

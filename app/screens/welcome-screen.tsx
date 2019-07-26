@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect } from "react"
 import { View, ActivityIndicator, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Text } from "../components/text"
@@ -7,8 +7,8 @@ import { Screen } from "../components/screen"
 import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
-import { inject, observer } from "mobx-react"
-import { RootStore } from "../models"
+import { observer } from "mobx-react"
+import { useRootStore } from "../models/use-stores"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -70,54 +70,53 @@ const LOADING_STYLE: ViewStyle = {
   paddingHorizontal: spacing[8],
 }
 
-export interface WelcomeScreenProps extends NavigationScreenProps<{}> {
-  rootStore: RootStore
-}
+export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
 
-class WelcomeScreenComponent extends React.Component<WelcomeScreenProps, {}> {
-  nextScreen = () => this.props.navigation.navigate("secondExample")
+function WelcomeScreenComponent(props: WelcomeScreenProps) {
+  const nextScreen = () => props.navigation.navigate("secondExample")
 
-  componentDidMount() {
-    const { rootStore } = this.props
+  const rootStore = useRootStore()
+
+  const { players, teams, status } = rootStore
+
+  useEffect(() => {
+    // find rootStore
     rootStore && rootStore.getAll()
-  }
+  }, [])
 
-  render() {
-    const { players, teams, status } = this.props.rootStore
-    return (
-      <View testID="WelcomeScreen" style={FULL}>
-        <Wallpaper />
-        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-          <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-          <Text style={TITLE} preset="header" tx="welcomeScreen.title" />
-          <Text style={CONTENT}>
-            This app lets you rank your favorite (and least favorite) players in the NBA!
-          </Text>
-          {status === "loading" && <ActivityIndicator style={LOADING_STYLE} size="large" />}
-          {status === "done" && (
-            <>
-              <Text style={CONTENT}>Loaded {players.length} players from the API!</Text>
-              <Text style={CONTENT}>Also loaded {teams.length} teams from the API!</Text>
-              <Text style={CONTENT}>Tap "Continue" to start rating players.</Text>
-            </>
-          )}
-        </Screen>
-        <SafeAreaView style={FOOTER}>
-          <View style={FOOTER_CONTENT}>
-            <Button
-              testID="next-screen-button"
-              style={CONTINUE}
-              textStyle={CONTINUE_TEXT}
-              tx="welcomeScreen.continue"
-              onPress={this.nextScreen}
-              disabled={status !== "done"}
-            />
-          </View>
-        </SafeAreaView>
-      </View>
-    )
-  }
+  return (
+    <View testID="WelcomeScreen" style={FULL}>
+      <Wallpaper />
+      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+        <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
+        <Text style={TITLE} preset="header" tx="welcomeScreen.title" />
+        <Text style={CONTENT}>
+          This app lets you rank your favorite (and least favorite) players in the NBA!
+        </Text>
+        {status === "loading" && <ActivityIndicator style={LOADING_STYLE} size="large" />}
+        {status === "done" && (
+          <>
+            <Text style={CONTENT}>Loaded {players.length} players from the API!</Text>
+            <Text style={CONTENT}>Also loaded {teams.length} teams from the API!</Text>
+            <Text style={CONTENT}>Tap "Continue" to start rating players.</Text>
+          </>
+        )}
+      </Screen>
+      <SafeAreaView style={FOOTER}>
+        <View style={FOOTER_CONTENT}>
+          <Button
+            testID="next-screen-button"
+            style={CONTINUE}
+            textStyle={CONTINUE_TEXT}
+            tx="welcomeScreen.continue"
+            onPress={nextScreen}
+            disabled={status !== "done"}
+          />
+        </View>
+      </SafeAreaView>
+    </View>
+  )
 }
 
 // Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
-export const WelcomeScreen = inject("rootStore")(observer(WelcomeScreenComponent))
+export const WelcomeScreen = observer(WelcomeScreenComponent)

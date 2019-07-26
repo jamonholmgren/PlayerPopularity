@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import {
   FlatList,
   TextStyle,
@@ -18,6 +18,7 @@ import { inject, observer } from "mobx-react"
 import { RootStore } from "../models"
 import { Button } from "../components/button/button"
 import { Player } from "../models/player"
+import { useRootStore } from "../models/use-stores"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -86,74 +87,72 @@ const RatingView = () => {
   return <Text style={RATING_VIEW}>⭐️️ ⭐️ ⭐️ ⭐️ ⭐️</Text>
 }
 
-type PlayersScreenState = { currentPlayer: Player | void }
+// type PlayersScreenState = { currentPlayer: Player | void }
 
-class PlayersScreenComponent extends React.Component<PlayersScreenProps, {}> {
-  state: PlayersScreenState = {
-    currentPlayer: undefined,
+function PlayersScreenComponent(props: PlayersScreenProps) {
+  const [currentPlayer, setCurrentPlayer] = useState<Player | void>(undefined)
+  const rootStore = useRootStore()
+
+  const goBack = () => props.navigation.goBack(null)
+
+  const openPlayerRating = (cp: Player) => {
+    console.tron.log("openPlayerRating", cp)
+    setCurrentPlayer(cp)
+  }
+  const setPlayerRating = (cp: Player | void) => {
+    console.tron.log("setPlayerRating", cp)
+    setCurrentPlayer(cp)
   }
 
-  goBack = () => this.props.navigation.goBack(null)
+  const { players } = rootStore
 
-  openPlayerRating = (currentPlayer: Player) => {
-    console.tron.log("openPlayerRating", currentPlayer)
-    this.setState({ currentPlayer })
-  }
-  setPlayerRating = (currentPlayer: Player | void) => {
-    console.tron.log("setPlayerRating", currentPlayer)
-    this.setState({ currentPlayer })
-  }
-
-  render() {
-    const { players } = this.props.rootStore
-    return (
-      <View testID="PlayersScreen" style={FULL}>
-        <Wallpaper />
-        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-          <Header
-            headerTx="secondExampleScreen.howTo"
-            leftIcon="back"
-            onLeftPress={this.goBack}
-            style={HEADER}
-            titleStyle={HEADER_TITLE}
-          />
-          <Text style={TITLE} preset="header" tx="secondExampleScreen.title" />
-          <FlatList
-            data={players}
-            extraData={this.state}
-            renderItem={({ item }) => {
-              const p = item as Player
-              return (
-                <Button
-                  preset={"link"}
-                  style={PLAYER}
-                  onPress={() => {
-                    this.setState({ currentPlayer: p })
-                  }}
-                >
-                  <Image source={{ uri: p.imgURL }} style={AVATAR_PIC} />
-                  <View style={PLAYER_INFO}>
-                    {p !== this.state.currentPlayer ? (
-                      <>
-                        <Text text={p.name} style={PLAYER_NAME} />
-                        <Text
-                          text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
-                          style={PLAYER_BIO}
-                        />
-                      </>
-                    ) : (
-                      <RatingView />
-                    )}
-                  </View>
-                </Button>
-              )
-            }}
-            keyExtractor={p => p.imgURL}
-          />
-        </Screen>
-      </View>
-    )
-  }
+  return (
+    <View testID="PlayersScreen" style={FULL}>
+      <Wallpaper />
+      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+        <Header
+          headerTx="secondExampleScreen.howTo"
+          leftIcon="back"
+          onLeftPress={goBack}
+          style={HEADER}
+          titleStyle={HEADER_TITLE}
+        />
+        <Text style={TITLE} preset="header" tx="secondExampleScreen.title" />
+        <FlatList
+          data={players}
+          extraData={[currentPlayer]}
+          renderItem={({ item }) => {
+            const p = item as Player
+            return (
+              <Button
+                preset={"link"}
+                style={PLAYER}
+                onPress={() => {
+                  setCurrentPlayer(p)
+                }}
+              >
+                <Image source={{ uri: p.imgURL }} style={AVATAR_PIC} />
+                <View style={PLAYER_INFO}>
+                  {p !== currentPlayer ? (
+                    <>
+                      <Text text={p.name} style={PLAYER_NAME} />
+                      <Text
+                        text={`${p.pos} • ${p.height} • ${p.weight}lbs • ${p.tid.name}`}
+                        style={PLAYER_BIO}
+                      />
+                    </>
+                  ) : (
+                    <RatingView />
+                  )}
+                </View>
+              </Button>
+            )
+          }}
+          keyExtractor={(p: Player) => p.imgURL}
+        />
+      </Screen>
+    </View>
+  )
 }
 
 // Workaround for https://github.com/mobxjs/mobx-react/issues/690#issuecomment-508647033
