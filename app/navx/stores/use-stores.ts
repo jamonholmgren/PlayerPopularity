@@ -1,6 +1,6 @@
 import React from "react"
 import { MobXProviderContext } from "mobx-react"
-import { RootStore } from "./root-store"
+import { RootStore } from "../../models/root-store"
 
 // To access any store in React
 export function useStores() {

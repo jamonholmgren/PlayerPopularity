@@ -1,14 +1,15 @@
 import { Instance, SnapshotOut, types, getEnv } from "mobx-state-tree"
-import { NavigationStoreModel } from "../navigation/navigation-store"
-import { PlayerModel, PlayerSnapshot } from "./player"
-import { TeamModel, TeamSnapshot } from "./team"
+import { PlayerModel, PlayerSnapshot } from "../../models/player"
+import { TeamModel, TeamSnapshot } from "../../models/team"
+
+// import { NavigationStoreModel } from "./navigation-store"
+// .props({ navigationStore: types.optional(NavigationStoreModel, {}) })
 
 /**
  * A RootStore model.
  */
 export const RootStoreModel = types
   .model("RootStore", {
-    navigationStore: types.optional(NavigationStoreModel, {}),
     players: types.array(PlayerModel),
     teams: types.array(TeamModel),
     status: types.optional(types.enumeration(["pending", "loading", "done", "error"]), "pending"),

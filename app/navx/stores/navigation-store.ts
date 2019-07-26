@@ -1,9 +1,11 @@
 import { Instance, types } from "mobx-state-tree"
-import { RootNavigator } from "./root-navigator"
 import { NavigationActions, NavigationAction } from "react-navigation"
-import { NavigationEvents } from "./navigation-events"
+import { NavigationEvents } from "../navigation/navigation-events"
+import { createStackNavigator } from "react-navigation"
 
-const DEFAULT_STATE = RootNavigator.router.getStateForAction(NavigationActions.init(), null)
+// Dummy navigator for default state
+const DummyNavigator = createStackNavigator({})
+const DEFAULT_STATE = DummyNavigator.router.getStateForAction(NavigationActions.init(), null)
 
 /**
  * Finds the current route.
@@ -12,9 +14,7 @@ const DEFAULT_STATE = RootNavigator.router.getStateForAction(NavigationActions.i
  */
 function findCurrentRoute(navState) {
   const route = navState.routes[navState.index]
-  if (route.routes) {
-    return findCurrentRoute(route)
-  }
+  if (route.routes) return findCurrentRoute(route)
   return route
 }
 
@@ -34,7 +34,7 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
 
     try {
       // make sure react-navigation can handle our state
-      RootNavigator.router.getPathAndParamsForState(snapshot.state)
+      DummyNavigator.router.getPathAndParamsForState(snapshot.state)
       return snapshot
     } catch (e) {
       // otherwise restore default state
@@ -59,7 +59,7 @@ export const NavigationStoreModel = NavigationEvents.named("NavigationStore")
      */
     dispatch(action: NavigationAction, shouldPush: boolean = true) {
       const previousNavState = shouldPush ? self.state : null
-      self.state = RootNavigator.router.getStateForAction(action, previousNavState) || self.state
+      self.state = DummyNavigator.router.getStateForAction(action, previousNavState) || self.state
       self.fireSubscribers(action, previousNavState, self.state)
       return true
     },

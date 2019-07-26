@@ -1,1 +1,1 @@
-export * from "./stateful-navigator"
+export * from "../navx/navigation/navx-navigator"

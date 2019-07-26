@@ -9,7 +9,7 @@ import { Header } from "../components/header"
 import { color, spacing } from "../theme"
 import { observer } from "mobx-react"
 import { RootStore } from "../models"
-import { useRootStore } from "../models/use-stores"
+import { useRootStore } from "../navx/stores/use-stores"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
