@@ -18,37 +18,22 @@ import { NavX } from "./navx"
 export const App = (props: {}) => {
   const [rootStore, setRootStore] = useState(undefined)
 
-  /**
-   * When the component is mounted. This happens asynchronously and simply
-   * re-renders when we're good to go.
-   */
+  // setup root store and rerender
   useEffect(() => {
     setupRootStore().then(rs => {
       setRootStore(rs)
     })
   }, [])
 
-  /**
-   * Are we allowed to exit the app?  This is called when the back button
-   * is pressed on android.
-   *
-   * @param routeName The currently active route name.
-   */
+  // what routes are allowed to exit on Android?
   const canExit = (routeName: string) => {
-    return contains(routeName, DEFAULT_NAVIGATION_CONFIG.exitRoutes)
+    return contains(routeName, ["firstExample"])
   }
 
-  // Before we show the app, we have to wait for our state to be ready.
-  // In the meantime, don't render anything. This will be the background
-  // color set in native by rootView's background color.
-  //
-  // This step should be completely covered over by the splash screen though.
-  //
-  // You're welcome to swap in your own component to render if your boot up
-  // sequence is too slow though.
+  // render nothing while we wait for rootStore to load (should be quick)
   if (!rootStore) return null
 
-  // otherwise, we're ready to render the app
+  // we're ready to render the app!
   return <NavX screen={MainStack} rootStore={rootStore} canExit={canExit} />
 }
 
