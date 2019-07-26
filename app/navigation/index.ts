@@ -1,1 +1,1 @@
-export * from "../navx/navigation/navx-navigator"
+export * from "./main-stack"

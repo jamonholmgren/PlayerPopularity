@@ -8,7 +8,6 @@ import { AppRegistry } from "react-native"
 import { StorybookUIRoot } from "../storybook"
 import { contains } from "ramda"
 import { setupRootStore } from "./models/setup-root-store"
-import { DEFAULT_NAVIGATION_CONFIG } from "./navx/navigation/navigation-config"
 import { MainStack } from "./navigation/main-stack"
 import { NavX } from "./navx"
 

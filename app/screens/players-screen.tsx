@@ -10,7 +10,7 @@ import { observer } from "mobx-react"
 import { RootStore } from "../navx"
 import { Button } from "../components/button/button"
 import { Player } from "../models/player"
-import { useRootStore } from "../navx/stores/use-stores"
+import { useRootStore } from "../navx"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -92,8 +92,6 @@ export function PlayersScreenComponent(props: PlayersScreenProps) {
     console.tron.log("setPlayerRating", currentPlayer)
     setPlayer(currentPlayer)
   }
-
-  console.tron.logImportant(players)
 
   return (
     <View testID="PlayersScreen" style={FULL}>

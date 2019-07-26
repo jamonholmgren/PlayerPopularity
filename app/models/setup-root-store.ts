@@ -1,7 +1,7 @@
 import { onSnapshot } from "mobx-state-tree"
 import { RootStoreModel, RootStore } from "./root-store"
 import { Environment } from "./environment"
-import * as storage from "../navx/storage"
+import { storage } from "../navx"
 import { Reactotron } from "../services/reactotron"
 import { Api } from "../services/api"
 

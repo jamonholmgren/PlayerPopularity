@@ -44,8 +44,6 @@ export const createNavXNavigator = RootNavigator => {
     // prettier-ignore
     const persist = __DEV__ ? undefined : { persistNavigationState, loadNavigationState }
 
-    console.tron.logImportant(currentNavProp)
-
     return <RootNavigator {...persist} navigation={currentNavProp}></RootNavigator>
   }
 
