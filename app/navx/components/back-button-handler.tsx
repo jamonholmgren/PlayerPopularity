@@ -47,7 +47,7 @@ const BackButtonHandlerComponent = (props: BackButtonHandlerProps) => {
       // unsubscribe
       BackHandler.removeEventListener("hardwareBackPress", onBackPress)
     }
-  })
+  }, [])
 
   return props.children
 }
