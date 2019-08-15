@@ -78,7 +78,7 @@ const RatingView = () => {
 }
 
 export function PlayersScreenComponent(props: PlayersScreenProps) {
-  const { players } = useStore("AppStore") as AppStore
+  const { players } = useStore("appStore") as AppStore
 
   const [currentPlayer, setPlayer] = useState(undefined)
 
