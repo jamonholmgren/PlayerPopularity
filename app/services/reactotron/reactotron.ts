@@ -1,5 +1,4 @@
 import Tron from "reactotron-react-native"
-import { RootStore } from "../../models"
 import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
@@ -81,7 +80,6 @@ export class Reactotron {
    */
   setRootStore(rootStore: any, initialData: any) {
     if (__DEV__) {
-      rootStore = rootStore as RootStore // typescript hack
       this.rootStore = rootStore
 
       const { initial, snapshots } = this.config.state
@@ -116,6 +114,7 @@ export class Reactotron {
       })
 
       // set async storage
+      // @ts-ignore
       Tron.setAsyncStorageHandler(storage.Storage)
 
       // hookup middleware

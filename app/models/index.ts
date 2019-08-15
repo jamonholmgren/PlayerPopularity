@@ -1,2 +1,2 @@
-export { Player, PlayerModel, PlayerSnapshot } from "./player"
-export { RootStore } from "./root-store"
+export { Player, PlayerModel, PlayerSnapshot } from "./player/player"
+export { AppStore } from "./app-store"

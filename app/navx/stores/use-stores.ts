@@ -1,10 +1,14 @@
 import React from "react"
 import { MobXProviderContext } from "mobx-react"
-import { RootStore } from "../../models/root-store"
+import { RootStore } from "./root-store"
 
 // To access any store in React
 export function useStores() {
   return React.useContext(MobXProviderContext)
+}
+
+export function useStore(storeName: string) {
+  return useStores()[storeName]
 }
 
 export function useRootStore(): RootStore {
@@ -12,5 +16,5 @@ export function useRootStore(): RootStore {
 }
 
 export function useNavigationStore() {
-  return useStores().navigationStore
+  return useRootStore().navigationStore
 }

@@ -4,7 +4,7 @@ import SplashScreen from "react-native-splash-screen"
 
 configure(() => {
   require("./storybook-registry")
-})
+}, module)
 
 const StorybookUI = getStorybookUI({ port: 9001, host: "localhost", onDeviceUI: true })
 

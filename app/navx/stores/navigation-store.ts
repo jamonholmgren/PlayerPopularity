@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { types } from "mobx-state-tree"
 import { NavigationActions, NavigationAction } from "react-navigation"
 import { NavigationEvents } from "../navigation/navigation-events"
 
@@ -88,4 +88,5 @@ export const createNavigationStoreModel = navigator => {
       },
     }))
 }
+
 // export type NavigationStore = Instance<typeof NavigationStoreModel>
