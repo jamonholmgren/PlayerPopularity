@@ -6,10 +6,9 @@ import { Text } from "../components/text"
 import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
-import { observer } from "mobx-react"
 import { Button } from "../components/button/button"
 import { Player } from "../models/player/player"
-import { useStore } from "../navx"
+import { useStore, observer } from "react-navx"
 import { AppStore } from "../models/app-store"
 
 const FULL: ViewStyle = { flex: 1 }

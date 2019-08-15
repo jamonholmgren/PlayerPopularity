@@ -2,7 +2,7 @@ import * as React from "react"
 import { View } from "react-native"
 import { PRESETS } from "./form-row.presets"
 import { FormRowProps } from "./form-row.props"
-import { mergeAll, flatten } from "ramda"
+import { mergeAll, flatten } from "../../utils/ramda-lite"
 
 /**
  * A horizontal container component used to hold a row of a form.
@@ -10,11 +10,5 @@ import { mergeAll, flatten } from "ramda"
 export function FormRow(props: FormRowProps) {
   const viewStyle = mergeAll(flatten([PRESETS[props.preset], props.style]))
 
-  return (
-    <View
-      style={viewStyle}
-    >
-      {props.children}
-    </View>
-  )
+  return <View style={viewStyle}>{props.children}</View>
 }

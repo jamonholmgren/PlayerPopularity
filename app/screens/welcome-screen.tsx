@@ -7,8 +7,7 @@ import { Screen } from "../components/screen"
 import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
-import { observer } from "mobx-react"
-import { useStore } from "../navx"
+import { useStore, observer } from "react-navx"
 import { AppStore } from "../models/app-store"
 
 const FULL: ViewStyle = { flex: 1 }

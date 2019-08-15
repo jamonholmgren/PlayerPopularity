@@ -1,8 +1,7 @@
 import Tron from "reactotron-react-native"
-import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
-import { storage } from "../../navx"
+import { storage, onSnapshot } from "react-navx"
 
 // Teach TypeScript about the bad things we want to do.
 declare global {

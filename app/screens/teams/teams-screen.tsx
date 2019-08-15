@@ -1,11 +1,10 @@
 import * as React from "react"
 import { FlatList } from "react-native"
 import { TeamRow } from "./team-row"
-import { observer } from "mobx-react"
-import { useStore } from "../../navx"
+import { useStore, observer } from "react-navx"
 import { AppStore } from "../../models/app-store"
 
-export function PlayersScreenComponent(props) {
+function PlayersScreenComponent(props) {
   const { teams } = useStore("AppStore") as AppStore
 
   return (

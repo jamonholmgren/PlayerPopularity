@@ -3,7 +3,7 @@ import { Text as ReactNativeText } from "react-native"
 import { presets } from "./text.presets"
 import { TextProps } from "./text.props"
 import { translate } from "../../i18n"
-import { mergeAll, flatten } from "ramda"
+import { mergeAll, flatten } from "../../utils/ramda-lite"
 
 /**
  * For your text displaying needs.

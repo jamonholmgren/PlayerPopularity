@@ -13,7 +13,7 @@
     "noEmit": true,
     "sourceMap": true,
     "target": "es2015",
-    "lib": ["es6"]
+    "lib": ["es6", "esnext"]
   },
   "exclude": ["node_modules"],
   "include": ["app", "test", "storybook"]

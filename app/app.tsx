@@ -6,7 +6,7 @@ import "./i18n"
 import React, { useState } from "react"
 import { AppRegistry } from "react-native"
 import { StorybookUIRoot } from "../storybook"
-import { NavX } from "./navx/navx"
+import { NavX } from "react-navx"
 import { MainStack } from "./navigation/main-stack"
 import { AppStoreModel } from "./models/app-store"
 import { createEnvironment } from "./models/env"
@@ -24,6 +24,7 @@ export function App(props) {
   const canExit = (routeName: string) => {
     // routes you can exit the app from on Android back button
     const EXIT_ROUTES = ["firstExample"]
+    // @ts-ignore
     return EXIT_ROUTES.includes(routeName)
   }
   return (

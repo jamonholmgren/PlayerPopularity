@@ -3,7 +3,7 @@ import { TouchableOpacity, TextStyle, ViewStyle, View } from "react-native"
 import { Text } from "../text"
 import { color, spacing } from "../../theme"
 import { CheckboxProps } from "./checkbox.props"
-import { mergeAll, flatten } from "ramda"
+import { mergeAll, flatten } from "../../utils/ramda-lite"
 
 const ROOT: ViewStyle = {
   flexDirection: "row",
