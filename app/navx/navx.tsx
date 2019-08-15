@@ -21,6 +21,7 @@ export type NavXProps = {
   screen: any
   rootStore?: any
   navStore?: any
+  storeModels?: any
   stores?: any
   storageKey?: string
   reactotron?: BasicReactotron
@@ -33,6 +34,7 @@ export type RootStore = Instance<typeof RootStoreModel>
 
 export const NavX = (props: NavXProps) => {
   // root store model extended with additional props
+  const extraStoreModels = props.storeModels || {}
   const extraStores = props.stores || {}
   const env = props.env || {}
 
@@ -57,28 +59,31 @@ export const NavX = (props: NavXProps) => {
 
       const RootStoreModelX = RootStoreModel.props({
         navigationStore: NavigationStoreModel,
-      }).props(extraStores)
+      }).props(extraStoreModels)
 
-      // prepare the environment that will be associated with the NavigationStore.
-      // default store -- empty state
-      const navigationStore = NavigationStoreModel.create({}, env)
-      const initialRootStore = RootStoreModelX.create(
-        {
-          navigationStore,
-          ...extraStores,
-        },
-        env,
-      )
-      setRootStore(initialRootStore)
-
-      // load data from storage (if no rootStore provided via props)
       if (!props.rootStore) {
+        // prepare the environment that will be associated with the NavigationStore.
+        // default store -- empty state
+
+        // load data from storage (if no rootStore provided via props)
         storage.load(storageKey).then(data => {
           try {
-            setRootStore(RootStoreModelX.create(data, {}))
+            if (!data) {
+              data = {
+                navigationStore: NavigationStoreModel.create({}, env),
+              }
+            }
+            setRootStore(RootStoreModelX.create(data, env))
           } catch (e) {
             // fallback to default state
-            setRootStore(initialRootStore)
+            setRootStore(
+              RootStoreModelX.create(
+                {
+                  navigationStore: NavigationStoreModel.create({}, env),
+                },
+                {},
+              ),
+            )
 
             // but please inform us what happened, if we have Reactotron enabled
             __DEV__ && props.reactotron && props.reactotron.error(e.message, null)
@@ -104,7 +109,7 @@ export const NavX = (props: NavXProps) => {
 
   return (
     // access with `useRootStore` and `useNavigationStore` hooks
-    <Provider rootStore={rootStore}>
+    <Provider rootStore={rootStore} navigationStore={rootStore.navigationStore}>
       <BackButtonHandler canExit={props.canExit}>
         <NavXNavigator>{props.screen}</NavXNavigator>
       </BackButtonHandler>

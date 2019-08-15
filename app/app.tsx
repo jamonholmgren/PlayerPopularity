@@ -3,7 +3,7 @@
 // In this file, we'll be kicking off our app or storybook.
 
 import "./i18n"
-import * as React from "react"
+import React, { useState } from "react"
 import { AppRegistry } from "react-native"
 import { StorybookUIRoot } from "../storybook"
 import { NavX } from "./navx/navx"
@@ -18,24 +18,24 @@ const APP_NAME = "PlayerPopularity"
 const env = createEnvironment()
 
 // This is the root component of our app.
-export class App extends React.Component {
-  canExit(routeName: string) {
+export function App(props) {
+  const [appStore] = useState(AppStoreModel.create({}, env))
+
+  const canExit = (routeName: string) => {
     // routes you can exit the app from on Android back button
     const EXIT_ROUTES = ["firstExample"]
     return EXIT_ROUTES.includes(routeName)
   }
-
-  render() {
-    return (
-      <NavX
-        stores={{ appStore: AppStoreModel }}
-        screen={MainStack}
-        canExit={this.canExit}
-        env={env}
-        storageKey={APP_NAME + "version number here"}
-      />
-    )
-  }
+  return (
+    <NavX
+      storeModels={{ appStore: AppStoreModel }}
+      stores={{ appStore }}
+      screen={MainStack}
+      canExit={canExit}
+      env={env}
+      storageKey={APP_NAME + "version number here"}
+    />
+  )
 }
 
 // Should we show storybook instead of our app?

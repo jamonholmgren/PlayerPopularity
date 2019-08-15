@@ -76,7 +76,7 @@ export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
 function WelcomeScreenComponent(props: WelcomeScreenProps) {
   const nextScreen = () => props.navigation.navigate("secondExample")
 
-  const appStore = useStore("AppStore") as AppStore
+  const appStore = useStore("appStore") as AppStore
 
   useEffect(() => {
     appStore && appStore.getAll()

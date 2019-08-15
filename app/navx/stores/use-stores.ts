@@ -7,12 +7,12 @@ export function useStores() {
   return React.useContext(MobXProviderContext)
 }
 
-export function useStore(storeName: string) {
-  return useStores()[storeName]
-}
-
 export function useRootStore(): RootStore {
   return useStores().rootStore
+}
+
+export function useStore(storeName: string) {
+  return useRootStore()[storeName]
 }
 
 export function useNavigationStore() {
