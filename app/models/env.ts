@@ -17,15 +17,16 @@ export class Environment {
  * of the models that get created later. This is how we loosly couple things
  * like events between models.
  */
-export async function createEnvironment() {
+export function createEnvironment() {
   const env = new Environment()
 
   // create each service
   env.reactotron = new Reactotron()
   env.api = new Api()
 
-  // allow each service to setup
-  await Promise.all([env.reactotron.setup(), env.api.setup()])
+  // allow each service to set up
+  env.reactotron.setup().then(foo => null)
+  env.api.setup()
 
   return env
 }

@@ -34,6 +34,7 @@ export type RootStore = Instance<typeof RootStoreModel>
 export const NavX = (props: NavXProps) => {
   // root store model extended with additional props
   const extraStores = props.stores || {}
+  const env = props.env || {}
 
   const [rootStore, setRootStore] = useState(props.rootStore)
   const storageKey: string = props.storageKey || NAVIGATION_STATE_STORAGE_KEY
@@ -60,13 +61,13 @@ export const NavX = (props: NavXProps) => {
 
       // prepare the environment that will be associated with the NavigationStore.
       // default store -- empty state
-      const navigationStore = NavigationStoreModel.create({}, props.env || {})
+      const navigationStore = NavigationStoreModel.create({}, env)
       const initialRootStore = RootStoreModelX.create(
         {
           navigationStore,
           ...extraStores,
         },
-        props.env || {},
+        env,
       )
       setRootStore(initialRootStore)
 
@@ -95,8 +96,8 @@ export const NavX = (props: NavXProps) => {
   onSnapshot(rootStore, snapshot => storage.save(storageKey, snapshot))
 
   // if Reactotron is available, set it up to track the rootStore
-  if (__DEV__ && props.reactotron) {
-    props.reactotron.trackMstNode(rootStore)
+  if (__DEV__ && env.reactotron) {
+    env.reactotron.setRootStore(rootStore)
   }
 
   const NavXNavigator = createNavXNavigator(RootNavigator)

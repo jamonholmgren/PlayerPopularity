@@ -2,7 +2,7 @@ import Tron from "reactotron-react-native"
 import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
-import { storage } from "../../navx"
+import { Storage } from "../../navx/storage/storage"
 
 // Teach TypeScript about the bad things we want to do.
 declare global {
@@ -114,8 +114,7 @@ export class Reactotron {
       })
 
       // set async storage
-      // @ts-ignore
-      Tron.setAsyncStorageHandler(storage.Storage)
+      // Tron.setAsyncStorageHandler(Storage)
 
       // hookup middleware
       Tron.useReactNative({})
@@ -140,7 +139,7 @@ export class Reactotron {
         command: "resetStore",
         handler: () => {
           console.tron.log("resetting store")
-          storage.clear()
+          Storage.clear()
         },
       })
 
@@ -151,7 +150,7 @@ export class Reactotron {
         handler: () => {
           console.tron.log("resetting navigation store")
           // TODO: This won't work anymore!
-          this.rootStore.navigationStore.reset()
+          // this.rootStore.navigationStore.reset()
         },
       })
 

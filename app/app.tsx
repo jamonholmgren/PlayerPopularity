@@ -9,16 +9,15 @@ import { StorybookUIRoot } from "../storybook"
 import { NavX } from "./navx/navx"
 import { MainStack } from "./navigation/main-stack"
 import { AppStoreModel } from "./models/app-store"
-import { Reactotron } from "./services/reactotron"
+import { createEnvironment } from "./models/env"
 
-/**
- * This needs to match what's found in your app_delegate.m and MainActivity.java.
- */
+// This needs to match what's found in your app_delegate.m and MainActivity.java.
 const APP_NAME = "PlayerPopularity"
 
-/**
- * This is the root component of our app.
- */
+// Kick off Reactotron and API services
+const env = createEnvironment()
+
+// This is the root component of our app.
 export class App extends React.Component {
   canExit(routeName: string) {
     // routes you can exit the app from on Android back button
@@ -30,11 +29,9 @@ export class App extends React.Component {
     return (
       <NavX
         stores={{ appStore: AppStoreModel }}
-        screen={<MainStack />}
+        screen={MainStack}
         canExit={this.canExit}
-        env={{
-          reactotron: Reactotron,
-        }}
+        env={env}
         storageKey={APP_NAME + "version number here"}
       />
     )
