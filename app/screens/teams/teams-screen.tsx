@@ -2,15 +2,16 @@ import * as React from "react"
 import { FlatList } from "react-native"
 import { TeamRow } from "./team-row"
 import { observer } from "mobx-react"
-import { useRootStore } from "../../navx"
+import { useStore } from "../../navx"
+import { AppStore } from "../../models/app-store"
 
 export function PlayersScreenComponent(props) {
-  const { teams } = useRootStore()
+  const { teams } = useStore("AppStore") as AppStore
 
   return (
     <FlatList
       data={teams}
-      keyExtractor={t => t.id}
+      keyExtractor={t => t.name}
       renderItem={({ item }) => <TeamRow imgURL={item.imgURL} name={item.name} />}
     />
   )

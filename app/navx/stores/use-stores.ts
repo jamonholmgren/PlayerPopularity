@@ -16,5 +16,5 @@ export function useRootStore(): RootStore {
 }
 
 export function useNavigationStore() {
-  return useRootStore().navigationStore
+  return useStore("navigationStore")
 }
