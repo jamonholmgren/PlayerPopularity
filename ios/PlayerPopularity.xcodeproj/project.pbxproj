@@ -37,6 +37,7 @@
 		A88A126ACBBB42C6A79D4FA3 /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D20065655F0A4161A30B4306 /* Montserrat-LightItalic.ttf */; };
 		CCEEEBA77B874C5F8C00316F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0444317FC16D4493ACF93305 /* Montserrat-Regular.ttf */; };
 		CE4EBCA48E91438E88E24BA8 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 736A035727A340F1A62D4BC7 /* Montserrat-Medium.ttf */; };
+		E90C444E23053FFB001719DD /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90C444B23053FD1001719DD /* libRNGestureHandler.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		F5FCE5B143D148C885B399A4 /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99865A9DB252446B909D1ACC /* Montserrat-ExtraBoldItalic.ttf */; };
@@ -57,6 +58,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "PlayerPopularity-tvOS";
+		};
+		E90C444A23053FD1001719DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E90C444523053FD1001719DD /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGestureHandler;
+		};
+		E90C444C23053FD1001719DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E90C444523053FD1001719DD /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
+			remoteInfo = "RNGestureHandler-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -102,6 +117,7 @@
 		B816E0D2D29DE24890E47DD9 /* Pods-PlayerPopularity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerPopularity.debug.xcconfig"; path = "Target Support Files/Pods-PlayerPopularity/Pods-PlayerPopularity.debug.xcconfig"; sourceTree = "<group>"; };
 		CE97929DE69F49B18120C0FE /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBold.ttf"; path = "../app/theme/fonts/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
 		D20065655F0A4161A30B4306 /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-LightItalic.ttf"; path = "../app/theme/fonts/Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		E90C444523053FD1001719DD /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		EB185BBFC2FE05ECD9D6A3CB /* libPods-PlayerPopularityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerPopularityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC1E8D4D2FB04F6EA4C777E7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../app/theme/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -122,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90C444E23053FFB001719DD /* libRNGestureHandler.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				942F4881F8306C33F95D65CC /* libPods-PlayerPopularity.a in Frameworks */,
 			);
@@ -221,6 +238,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E90C444523053FD1001719DD /* RNGestureHandler.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -266,6 +284,15 @@
 				8A6672AD985073799AC0711B /* Pods-PlayerPopularityTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E90C444623053FD1001719DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E90C444B23053FD1001719DD /* libRNGestureHandler.a */,
+				E90C444D23053FD1001719DD /* libRNGestureHandler-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		E9F8E05C22B0C3E8003FFEE3 /* Recovered References */ = {
@@ -394,6 +421,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E90C444623053FD1001719DD /* Products */;
+					ProjectRef = E90C444523053FD1001719DD /* RNGestureHandler.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* PlayerPopularity */,
@@ -403,6 +436,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E90C444B23053FD1001719DD /* libRNGestureHandler.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGestureHandler.a;
+			remoteRef = E90C444A23053FD1001719DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E90C444D23053FD1001719DD /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = E90C444C23053FD1001719DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -469,7 +519,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		04FE7D9CECD64264E1F64AF6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
