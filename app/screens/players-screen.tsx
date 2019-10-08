@@ -6,11 +6,10 @@ import { Text } from "../components/text"
 import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
-import { observer } from "mobx-react"
-import { RootStore } from "../models"
 import { Button } from "../components/button/button"
-import { Player } from "../models/player"
-import { useRootStore } from "../models/use-stores"
+import { Player } from "../models/player/player"
+import { useStore, observer } from "react-navx"
+import { AppStore } from "../models/app-store"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -71,29 +70,18 @@ const RATING_VIEW: TextStyle = {
   fontSize: 30,
 }
 
-export interface PlayersScreenProps extends NavigationScreenProps<{}> {
-  rootStore: RootStore
-}
+export interface PlayersScreenProps extends NavigationScreenProps<{}> {}
 
 const RatingView = () => {
   return <Text style={RATING_VIEW}>⭐️️ ⭐️ ⭐️ ⭐️ ⭐️</Text>
 }
 
 export function PlayersScreenComponent(props: PlayersScreenProps) {
-  const { players } = useRootStore()
+  const { players } = useStore("appStore") as AppStore
+
   const [currentPlayer, setPlayer] = useState(undefined)
 
   const goBack = () => props.navigation.goBack(null)
-  const openPlayerRating = (currentPlayer: Player) => {
-    console.tron.log("openPlayerRating", currentPlayer)
-    setPlayer(currentPlayer)
-  }
-  const setPlayerRating = (currentPlayer: Player | void) => {
-    console.tron.log("setPlayerRating", currentPlayer)
-    setPlayer(currentPlayer)
-  }
-
-  console.tron.logImportant(players)
 
   return (
     <View testID="PlayersScreen" style={FULL}>

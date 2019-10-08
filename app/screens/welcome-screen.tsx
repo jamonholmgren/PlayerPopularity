@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { View, ActivityIndicator, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { NavigationScreenProps } from "react-navigation"
 import { Text } from "../components/text"
@@ -7,9 +7,8 @@ import { Screen } from "../components/screen"
 import { Wallpaper } from "../components/wallpaper"
 import { Header } from "../components/header"
 import { color, spacing } from "../theme"
-import { observer } from "mobx-react"
-import { RootStore } from "../models"
-import { useRootStore } from "../models/use-stores"
+import { useStore, observer } from "react-navx"
+import { AppStore } from "../models/app-store"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -71,20 +70,18 @@ const LOADING_STYLE: ViewStyle = {
   paddingHorizontal: spacing[8],
 }
 
-export interface WelcomeScreenProps extends NavigationScreenProps<{}> {
-  rootStore: RootStore
-}
+export interface WelcomeScreenProps extends NavigationScreenProps<{}> {}
 
 function WelcomeScreenComponent(props: WelcomeScreenProps) {
   const nextScreen = () => props.navigation.navigate("secondExample")
 
-  const rootStore = useRootStore()
+  const appStore = useStore("appStore") as AppStore
 
   useEffect(() => {
-    rootStore && rootStore.getAll()
+    appStore && appStore.getAll()
   }, [])
 
-  const { players, teams, status } = rootStore
+  const { players, teams, status } = appStore
 
   return (
     <View testID="WelcomeScreen" style={FULL}>

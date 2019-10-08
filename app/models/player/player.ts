@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree"
-import { TeamModel } from "./team"
+import { TeamModel } from "../team/team"
 
 export const PlayerRatingModel = types.model({
   hgt: types.number,

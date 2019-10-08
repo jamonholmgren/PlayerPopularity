@@ -1,4 +1,3 @@
-export * from "./root-store"
-export * from "./setup-root-store"
-export { Player, PlayerModel, PlayerSnapshot } from "./player"
-// export * from "./use-stores"
+export { Player, PlayerModel, PlayerSnapshot } from "./player/player"
+export { createEnvironment } from "./env"
+export { AppStore } from "./app-store"

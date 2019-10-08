@@ -4,7 +4,7 @@ import { color, spacing, typography } from "../../theme"
 import { translate } from "../../i18n"
 import { Text } from "../text"
 import { TextFieldProps } from "./text-field.props"
-import { mergeAll, flatten } from "ramda"
+import { mergeAll, flatten } from "../../utils/ramda-lite"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
@@ -28,7 +28,6 @@ const PRESETS: { [name: string]: ViewStyle } = {
 const enhance = (style, styleOverride) => {
   return mergeAll(flatten([style, styleOverride]))
 }
-
 
 /**
  * A component which has a label and an input together.
